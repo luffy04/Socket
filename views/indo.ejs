@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="socket.css">
+    <link href="faceMocion.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+     <div id="snow1"></div>
+    <div id="snow2"></div>
+    <div id="snow3"></div>
+    <ul id="menu">
+        <li id="tag" class="active" title="Home"><button id="home" class="fas fa-home"></button></li>
+        <li id="tag" title="Redeem"><button id="rupee" class="fas fa-rupee-sign"></button></li>
+        <li id="tag" title="Help"><button id="info" class="fas fa-question"></button></li>
+        <li id="tag" title="Settings"><button id="setting" class="fas fa-tools"></button></li>
+        <li id="tag" title="Logout"><form action="/logout" method="get" id="loggie"><button id="power" class="fas fa-power-off"></button></form></li>
+        <li id="tag"><button id="image"></button></li>
+    </ul>
+    
+    
+    <span id="true" hidden></span>
+    <button id="hide" class="fas fa-bars"></button><button id="hile" class="fas fa-ellipsis-h"></button>
+    
+    <!-- <form action="/logout" method="get">
+        <button id="logout">Logout</button>
+        </form> -->
+        
+    <span id="manu" hidden>
+        <button id="bg">Change Background Image
+                <input type="file" id="background" accept="image/*" title="" />        
+        </button>
+        <button id="pfimg">Change Profile Picture<input type="file"  id="file" accept="image/*" /></button>
+        <button id="changee">Change Password</button>
+    </span>
+        
+        <span id="top"> </span>
+    <span id="roka"></span>
+<span id="reward">30</span>
+    <button id="rebtn">Redeem</button>
+    <span id="outside" hidden>
+         <button id="closereward" class="fas fa-times"></button>
+        <button id="redeem" disabled>30 Rupees PAYTM</button>
+        <button id="more" class="fas fa-plus-circle">More to Come</button>
+    </span>
+<div id="parentsocket1">
+    <textarea type="text" placeholder="Type your Text Here" id="inpu"></textarea>
+
+    <!-- <input type="text" value="amo" class="facemocion"/> -->
+    <input type="file" id="myImageu">
+    <button id="btnu" type="submit"></button>
+    <button id="attachement"></button>
+    
+    <div id="show" hidden></div>
+    
+    <span id="lengthy">
+        <ul id="result1"> </ul>
+    </span>
+    
+    
+    <div id="user">
+        <span id="hello">Hello</span>
+        <span id="Registery">sanji</span>
+    </div>
+</div>
+
+<div id="box" hidden>
+        <button id="first" class="button" disabled>5</button>
+        <button id="second" class="button" disabled>5</button>
+        <button id="third" class="button" disabled>10</button>
+        <button id="fourth" class="button" disabled>10</button>
+        <button id="fifth" class="button" disabled>15</button>
+        <button id="sixth" class="button" disabled>20</button>
+   </div>
+
+
+   <div id="parentpassword" hidden>
+    <div id="childpassword">
+            <!-- <a href="/auth/facebook"><button id="fbreg"><img id="fbb" src="nf/signup-with-facebook-button.png"></button></a> -->
+            <button id="close2"><img src="nf/cancel-music.png" id="img4"></button>
+            <div id="oldie">Old Password</div><span id="alerting"></span>
+            <input type="text" name="username" id="oldbox" placeholder="Enter Your Old Password" autocomplete="off">
+            <div id="newie">New Password</div>
+            <input id="newbox" type="password" name="password" placeholder="Password">
+            <div id="confirmie">Confirm Password:</div>
+            <input id="confirmiebox" placeholder="Re-enter the Pasword " type="password" >
+            <span id="alertpas"></span>
+            <button id="confirmbox">Confirm</button>
+    </div>
+</div>
+<!-- <div id="profilepic">
+        <div id="image">
+                <div id="changepic">Change Profile Pic<input type="file"  id="file"></div> 
+        </div>
+</div> -->
+
+<span id="lets" hidden><span id="inn"><span id="lettere">Let's Take A Short Tour</span><button id="start">Let's Start</button><button id="skip">Skip</button>
+</span></span>
+
+<span id="lets1" hidden><span id="inn" ><span id="lettere">This is Your Login Points..</span><button id="next">Next</button><button id="skip1">Skip</button>
+</span></span>
+
+<span id="lets2" hidden><span id="inn"><span id="lettere">You can Reedem Points By Clicking This</span><button id="next1">Next</button><button id="skip2">Skip</button>
+</span></span>
+
+<span id="lets3" hidden><span id="inn" ><span id="lettere">Any More Queries..You can Ask Admin Directly</span><button id="skip3">Let's Go</button>
+</span></span>
+
+<span id="rightthumb" class="fas fa-hand-point-right" style="display: none;"></span>
+<span id="leftthumb" class="fas fa-hand-point-left" style="display: none;"></span>
+
+
+<div id="list" >
+    <ul id="room">
+        <ul style="-webkit-padding-start: 0;"></ul>
+    <button id="prop" hidden><img src="nf/chevron-up.png" id="up"></button>
+    <button id="profile"><img src="nf/chevron-up.rotated.png" id="up"></button>
+</div>
+
+    <span id="frndlist">Friend List</span>
+    <ul id="fff">
+         <li id="froe"><button id="Admin">Admin</button></li>
+    </ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<!--  <script src="faceMocion.js"></script> -->
+<script src="app.js"></script>
+<!-- <script src="app.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket</title>
+    <link rel="stylesheet" href="socket.css">
+    <link href="faceMocion.css" rel="stylesheet" type=/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+<!-- <span id="cover"> -->
+<span id="outer">
+        <span id="line">
+            <span id="chota">
+                <span id="bada">
+                    <span id="bulb">
+                        <span id="text">
+                            <span id="T">T</span>
+                            <span id="E">E</span>
+                            <span id="X">X</span>
+                            <span id="TI">T</span>
+                            <span id="I">I</span>
+                            <span id="EE">E</span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </span>
+</span>
+<span id="local" hidden>Global</span>
+<span id="get" hidden>Global</span>
+
+
+<span id="successbox" hidden>
+    <button id="dabba" ><img src='nf/icons8-checkmark-48.png' id="tickie"></button>
+    <button id="repo" >Success</button>
+</span>
+
+<button id="hine" class="fas fa-bars"></button>
+<button id="shinee" class="fas fa-bars"></button>
+
+<div id="parentlogin" hidden>
+    <div id="childlogin">
+        <form method="post" action="/login">
+            <button id="close1"><img src="nf/cancel-music.png" id="img4"></button>
+            <div id="username">Username:</div>
+            <input type="text" name="username" placeholder="Username" id="usernamebox" autocomplete="off">
+            <div id="password">Password:</div>
+            <input type="password" name="password" placeholder="Password" id="passwordbox">
+            <button id="submitbox">Submit</button>
+        </form>
+    </div>
+</div>
+ 
+        <!-- <input type>" name="search" value="" autocomplete="off" id="myinput" onkeyup="searchFunction()" placeholder="Search"> -->
+
+    
+    <div id="parentregister" hidden>
+        <div id="childregister">
+                <a href="/auth/facebook"><button id="fbreg"><img id="fbb" src="nf/signup-with-facebook-button.png"></button></a>
+                <button id="close2"><img src="nf/cancel-music.png" id="img4"></button>
+                <div id="name">Enter Your Name</div><span id="alertuser"></span>
+                <input type="text" name="username" id="namebox" onkeyup="matchname()" placeholder="This will be your username" autocomplete="off">
+                <div id="passwordagain">Enter the Password</div>
+                <input id="passwordbox1" type="password" name="password" placeholder="Password">
+                <button class="fas fa-eye" id="eye"></button>
+                <div id="confirmp">Confirm Password:</div>
+                <input id="confirmpbox" onkeyup="match()" placeholder="Re-enter the Pasword " type="password" >
+                <button id="submitboxreg" disabled>Submit</button>
+        </div>
+    </div>
+
+<span id="one">
+     <div id="snow1"></div>
+    <div id="snow2"></div>
+    <div id="snow3"></div>
+    <button id="logged" title="Login"><span class="fas fa-user" id="userpic"></span></button>
+        <button id="registered" title="Register"><img src="nf/icons8-add-user-male-60.png" id="userpic1"></button>
+        <button id="getroom" title="Share"><span class="fas fa-share-alt" id="door"></span></button>
+        <button id="like" title="Like"><span class="fas fa-thumbs-up" id="liki"></span></button>
+
+        <span id="time">
+             <span id="hours"></span><span style="color: white">:</span>
+            <span id="minutes"></span><span style="color: white">:</span>
+             <span id="seconds"></span>
+             <span class="fas fa-info-circle" style="color: blue" id="lot"></span>
+             <span id="alertbox">On <student style="color: red">00:00:00</student> all Rooms will be deleted</span>
+        </span>
+    <ul id="conroom">
+        <li id="rooney"><button id="global" disabled>Global</button></li>
+    </ul>
+</span>
+
+
+
+<span id="alexa" hidden><span id="inside"><strong><span id="letter"></span></strong><button id="ok">OK</button></span></span>
+
+<!-- <div id="user"> -->
+        <!-- <button id="login"><img src="nf/user.png" id="userpic"><span id="logtext">LOGIN</span></button> -->
+        <!-- <span id ="or">or</span> -->
+     
+       <!-- <button id="Register"><img src="nf/regpic.png" id="regpic"><span id="regtext">REGISTER</span>></button>    -->
+<!-- </div> -->
+        
+<div id="parentname" hidden>
+    <div id="childname">
+            <div id="namee">Enter Your Name:</div>
+            <input type="text" placeholder="Enter Your Name" id="nameebox" autocomplete="off">
+            <button id="okname">OK</button>
+    </div>
+</div>
+
+<div id="parentpassport" hidden>
+    <div id="childpassport">
+            <div id="passe">Enter a special id it will help you to login again:</div>
+            <input type="text" id="passebox" autocomplete="off">
+            <button id="okpasse">OK</button>
+    </div>
+</div>
+<div id="parentid" hidden>
+    <div id="childid">
+            <div id="ide">Enter your Id..</div>
+            <input type="text" id="idebox" autocomplete="off">
+            <button id="okide">OK</button>
+    </div>
+</div>
+<span id="parentsocket">
+    <span id="length">
+        <ul id="result"></ul>
+    </span>
+
+    <textarea type="text" placeholder="Type your Text Here" id="inp"></textarea>
+    
+        <button id="btn"  type="submit"></button>
+    <!-- s</span> -->
+    
+   <!--  <form method="post" action="/" enctype="multipart/form-data"> -->
+    <input type="file" id="myImage" name="myImage" accept="image/*" />
+    <button id="attach"></button>
+    <!-- </form> -->
+    
+    <div id="requestt" hidden>
+     <div id="reqname">
+         <button id="nameuser"></button> sent you a request to join Quick Chat.
+     </div>
+     <div id="buttonss"><button>No</button>
+         <button id="yess">Yes</button>
+     </div>
+    </div>
+
+</span>
+
+
+
+
+
+
+
+<span id="three">
+     <div id="snow1"></div>
+    <div id="snow2"></div>
+    <div id="snow3"></div>
+    <span id="count"></span>
+    <span id="connee">Connected Users</span>
+    <ul id="connected">
+       </ul>
+</span>
+
+<!-- <a href="/auth/facebook">Login with Facebook</a> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+ 
+    <script src="faceMocion.js"></script> 
+<script src="app.js"></script>
+</body>
+</html>
