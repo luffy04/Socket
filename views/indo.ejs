@@ -2,16 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Talkie</title>
     <link rel="stylesheet" href="socket.css">
     <link href="faceMocion.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
+
+    <div class="preloader1" hidden></div>
+
      <div id="snow1"></div>
     <div id="snow2"></div>
     <div id="snow3"></div>
     <ul id="menu">
+        <span id="dawn" style="color: white;" hidden>Global</span>
+        <span id="rise" style="color: white;" hidden>Globall</span>
+
         <li id="tag" class="active" title="Home"><button id="home" class="fas fa-home"></button></li>
         <li id="tag" title="Redeem"><button id="rupee" class="fas fa-rupee-sign"></button></li>
         <li id="tag" title="Help"><button id="info" class="fas fa-question"></button></li>
@@ -20,12 +26,11 @@
         <li id="tag"><button id="image"></button></li>
     </ul>
     
-    
     <span id="true" hidden></span>
     <button id="hide" class="fas fa-bars"></button><button id="hile" class="fas fa-ellipsis-h"></button>
     
     <!-- <form action="/logout" method="get">
-        <button id="logout">Logout</button>
+        <button id="logout">Logout show </button>
         </form> -->
         
     <span id="manu" hidden>
@@ -36,24 +41,35 @@
         <button id="changee">Change Password</button>
     </span>
         
-        <span id="top"> </span>
+    
+<span id="alexa" hidden><span id="inside"><strong><span id="letter"></span></strong><button id="ok">OK</button></span></span>
+        
+        <span id="top"></span>
     <span id="roka"></span>
-<span id="reward">30</span>
+<span id="reward"></span>
     <button id="rebtn">Redeem</button>
     <span id="outside" hidden>
          <button id="closereward" class="fas fa-times"></button>
-        <button id="redeem" disabled>30 Rupees PAYTM</button>
+        <button id="redeem" hidden>30 Rupees PAYTM</button>
         <button id="more" class="fas fa-plus-circle">More to Come</button>
     </span>
 <div id="parentsocket1">
+    <button id="chatidin" hidden></button>
+    <span id="cas1" hidden></span>
+    <span id="cap12" hidden></span>
+    <span id="cap11" hidden></span>
+    <span id="casing1" hidden></span>
+    <span id="caping12" hidden></span>
+    <span id="caping11" hidden></span>
+
     <textarea type="text" placeholder="Type your Text Here" id="inpu"></textarea>
 
     <!-- <input type="text" value="amo" class="facemocion"/> -->
-    <input type="file" id="myImageu">
-    <button id="btnu" type="submit"></button>
-    <button id="attachement"></button>
+    <input type="file" id="myImageu" hidden>
+    <button id="btnu" type="submit" hidden></button>
+    <button id="attachement" hidden></button>
     
-    <div id="show" hidden></div>
+    <!-- <div id="show" hidden></div> -->
     
     <span id="lengthy">
         <ul id="result1"> </ul>
@@ -62,7 +78,7 @@
     
     <div id="user">
         <span id="hello">Hello</span>
-        <span id="Registery">sanji</span>
+        <span id="Registery"><%= name %></span>
     </div>
 </div>
 
@@ -111,17 +127,23 @@
 <span id="rightthumb" class="fas fa-hand-point-right" style="display: none;"></span>
 <span id="leftthumb" class="fas fa-hand-point-left" style="display: none;"></span>
 
+<div id="parentmobile" hidden>
+    <div id="childmobile">
+            <div id="moble">Enter Your Mobile Number..</div>
+            <input type="text" id="moblebox" autocomplete="off">
+            <button id="okmoble">OK</button>
+    </div>
+</div>
 
 <div id="list" >
-    <ul id="room">
-        <ul style="-webkit-padding-start: 0;"></ul>
+    <ul id="room" style="-webkit-padding-start: 0;">
+        </ul>
     <button id="prop" hidden><img src="nf/chevron-up.png" id="up"></button>
     <button id="profile"><img src="nf/chevron-up.rotated.png" id="up"></button>
 </div>
 
     <span id="frndlist">Friend List</span>
     <ul id="fff">
-         <li id="froe"><button id="Admin">Admin</button></li>
     </ul>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>

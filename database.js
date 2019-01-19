@@ -1,6 +1,6 @@
 var mysql      = require('mysql');
-
-//var operations = require('./operation');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'luffy04',
@@ -16,11 +16,19 @@ function st(tab,cb){
         cb(err,results);
     })
 }
+function renew(username,hash,cb){
+    console.log(hash);
+    console.log(username);
+    connection.query(`update login set password='${hash}' where username='${username}' `,function(err,results){
+        cb(results);
+        console.log('done');
+    })
+}
 var trp=1;
 function signUp(username, hash, cb) {
     connection.query(`Insert into login (username,password) values ('${username}','${hash}')`, function(err, results) {
         //if(err) throw err;
-        connection.query(`Insert into profile (id,username,message) values ('${trp}','${username}','nf/profile.png')`,function(err,results){
+        connection.query(`Insert into profile (username,message) values ('${username}','nf/profile.png')`,function(err,results){
             cb(results);
             trp++;
         })
@@ -29,31 +37,30 @@ function signUp(username, hash, cb) {
 
 }
     function usertable(username,cb) {
-        console.log(username)
-        var sql = `CREATE TABLE ${username} (id int auto_increment,name varchar(255),message varchar(50000),primary key(id))`;
+        console.log(username);
+        var sql = `CREATE TABLE ${username} (name varchar(255),message varchar(50000))`;
          
         connection.query(sql,function (err, results) {
-            connection.query(`insert into ${username} (id,name,message) Values ('1','${username}','30')`,function(err,results){
-                var sql12=`CREATE TABLE ${username}friend (id int auto_increment,name varchar(255),room varchar(255),primary key(id))`;
+            connection.query(`insert into ${username} (name,message) Values ('${username}','30')`,function(err,results){
+                var sql12=`CREATE TABLE ${username}friend (name varchar(255),room varchar(255))`;
                  connection.query(sql12,function (err, results) {
-                    
-                    cb(err,results);
+                    connection.query(`insert into request (name,request) Values ('Admin','${username}')`,function(err,results){
+                        cb(err,results);
+                    })
                 })  
             })    
         })
     }
      function getUser(username, cb) {
-     connection.query(`Select * from login where username = ?`, [username], function(err, results) {
-         if(err)  next(err);
-         else{
-                  cb(results); // $.ajax({
-                //     url:'/create',
-                //     method:'post',
-                //     data:{}
-                 }
-
-     })
- }
+        connection.query(`Select * from login where username='${username}'`, function(err, results) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                cb(results); 
+            }
+         })
+    }
 function displaying(username,cb){
     connection.query(`select * from ${username}`,function(error,results,fields){
         cb(results);
@@ -87,7 +94,7 @@ function getpic(username,cb) {
 var i=1;
 function insert(name,todo,username, cb) {
     
-            connection.query(`Insert into ${username} (id,name,message) Values ('${i}','${name}','${todo}')`, function (error, results) {
+            connection.query(`Insert into ${username} (name,message) Values ('${name}','${todo}')`, function (error, results) {
                 cb(error, results);
                 i++;
             });
@@ -95,7 +102,7 @@ function insert(name,todo,username, cb) {
 }
 function addimage(name,todo,username, cb) {
     
-            connection.query(`Insert into ${username} (id,name,message) Values ('${i}','${name}','images/${todo}')`, function (error, results) {
+            connection.query(`Insert into ${username} (name,message) Values ('${name}','images/${todo}')`, function (error, results) {
                 cb(error, results);
                 i++;
             });
@@ -103,9 +110,14 @@ function addimage(name,todo,username, cb) {
 }
 var jn=1;
 function insertu(id,msg,to,user,cb){
-    connection.query(`insert into ${to} (id,name,message) values('${jn}','${user}','${msg}')`,function(error,results,fields){
+    connection.query(`insert into ${to} (name,message) values('${user}','${msg}')`,function(error,results,fields){
         cb(results);
         jn++;
+    })
+}
+function insertimage(id,msg,to,user,cb){
+    connection.query(`insert into ${to} (name,message) values('${user}','../Users/${user}/${msg}')`,function(error,results,fields){
+        cb(results);
     })
 }
 var j=1;
@@ -113,25 +125,23 @@ function insert1(msg,username,cb){
    
         connection.query(`update profile set message='../Users/${username}/${msg}' where username='${username}'`,function(err,results){
             cb(err,results);
-            j++;
         })
            
    // }
 }
 function insertx(msg,username,cb){
    
-        connection.query(`insert into profile (id,username,message) Values ('${j}','${username}','${msg}')`,function(err,results){
+        connection.query(`insert into profile (username,message) Values ('${username}','${msg}')`,function(err,results){
             cb(err,results);
-            j++;
+            trp++;
         })
            
    // }
 }
 var k=1;
 function insert22(send,rec,cb){
-    var sql55=`insert into request (id,name,request) Values('${k}','${rec}','${send}')`;
-    // var sql99=`SELECT * FROM ${send}`;
-    // var sql199=`SELECT * FROM ${rec}`;
+    console.log("last");
+    var sql55=`insert into request (name,request) Values ('${rec}','${send}')`;
     connection.query(sql55,function(err,results){
         // if (err){
         //     next(err);
@@ -159,7 +169,7 @@ function check(send,rec,cb){
            }
 
 function getfriend(username,cb){
-    var sql88=`SELECT * FROM request where name='${username}'`;
+    var sql88=`SELECT * FROM request where request='${username}'`;
          //var sql9=`SELECT * FROM profile where username=${username}`;
         connection.query(sql88, function (error, results, fields) {
             //if (error) throw error;
@@ -178,11 +188,11 @@ var zx=1;
 var xz=1;
 
 function insert77(send,v,room,cb){
-    connection.query(`insert into ${send}friend (id,name,room) values('${zx}','${v}','${room}')`,function(error,results,fields){
+    connection.query(`insert into ${send}friend (name,room) values('${v}','${room}')`,function(error,results,fields){
         
         zx++;
     
-    connection.query(`insert into ${v}friend (id,name,room) values('${xz}','${send}','${room}')`,function(error,results,fields){
+    connection.query(`insert into ${v}friend (name,room) values('${send}','${room}')`,function(error,results,fields){
         cb(results);
         xz++;
         })
@@ -195,7 +205,7 @@ function insert77(send,v,room,cb){
     })   
 }
 function remove(v,cb){
-    connection.query(`delete from request where name='${v}'`,function(error,results,fields){
+    connection.query(`delete from request where request='${v}'`,function(error,results,fields){
         cb(results);
     })
 }
@@ -216,7 +226,8 @@ function getreward(v,cb){
     })
 }
 function room(roomie,cb){
-    connection.query(`CREATE TABLE ${roomie} (id int auto_increment,name varchar(255),message varchar(50000),primary key(id))`,function(error,results,fields){
+    console.log("left");
+    connection.query(`CREATE TABLE ${roomie} (name varchar(255),message varchar(50000))`,function(error,results,fields){
         // if(error) cb(error);
          cb(results);
     })
@@ -229,7 +240,7 @@ function upload(data,user,cb){
 }
 var peek=1;
 function retro(user1,user2,room,cb){
-    var kite=`insert into room (id,user1,user2,room) values('${peek}','${user1}','${user2}','${room}')`;
+    var kite=`insert into room (user1,user2,room) values('${user1}','${user2}','${room}')`;
     //var left=`create table ${room} (id int auto_increment,user varchar(255),message varchar(50000),primary key(id))`;
     connection.query(kite,function(error,results,fields){
         cb(results);
@@ -237,7 +248,7 @@ function retro(user1,user2,room,cb){
     })
 }
 function local(room,cb){
-    connection.query(`create table ${room} (id int auto_increment,name varchar(255),message varchar(50000),primary key(id))`,function(error,results,fields){
+    connection.query(`create table ${room} (name varchar(255),message varchar(50000))`,function(error,results,fields){
         // if(error) throw error;
         cb(results);
     })
@@ -264,20 +275,20 @@ function poop(pattern,cb){
 }
 var kp=2;
 function mobile(user,no,cb){
-    connection.query(`insert into luffy (id,name,message) values ('${kp}','${user}','${no}')`,function(error,results,fields){
+    connection.query(`insert into Admin (name,message) values ('${user}','${no}')`,function(error,results,fields){
         cb(results);
     kp++;
     })
 }
 function luffy(cb){
-    connection.query(`SELECT * FROM luffy`,function(error,results,fields){
+    connection.query(`SELECT * FROM Admin`,function(error,results,fields){
         console.log(results);
         cb(results);
     })
 }
 function rule(cb){
     connection.query(`Drop table room`,function(error,results,fields){
-        connection.query(`create table room (id int auto_increment,user1 varchar(255),user2 varchar(255),room varchar(255),primary key(id)) `,function(error,results,fields){
+        connection.query(`create table room (user1 varchar(255),user2 varchar(255),room varchar(255)) `,function(error,results,fields){
             cb(results);
         })
     })
@@ -287,9 +298,16 @@ function prop(to,cb){
         cb(results);
     })
 }
+function info(qw,cb){
+    connection.query(`delete from Admin where name='${qw}'`,function(error,results,fields){
+        cb(results);
+    })
+}
+
 module.exports = {
     connectDB,
     st,
+    renew,
     signUp,
     getUser,
     usertable,  
@@ -298,6 +316,7 @@ module.exports = {
     insert,
     addimage,
     insert1,
+    insertimage,
     insertx,
     insertu,
     insert22,
@@ -321,5 +340,6 @@ module.exports = {
     luffy,
     mobile,
     rule,
-    prop
+    prop,
+    info
 };

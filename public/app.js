@@ -1,4 +1,3 @@
-
 var todoList=[];
 var i;
 var y;
@@ -8,12 +7,15 @@ var loft;
 var t;
 var pk;
 var rap;
+var nec;
 var no=[];
 var oppo=[];
 var roomie=[];
 var loot;
+var specs;
 var trainer;
 var teller;
+var po;
 var asd;
 var qwe='Global';
 var vds;
@@ -26,6 +28,7 @@ var broom='trap';
 var global=$('#global');
 let connected=$('#connected')
 let list=$('#list');
+let mone=$("#room");
 var socket =io.connect();
 var name;
 var userb=$('#Registery');
@@ -104,8 +107,8 @@ socket.emit('plot',function(data){
 })
 window.onbeforeunload=function(){
    
-    if (window.location.pathname == "/") {
-     socket.emit('dis',name);
+    if (window.location.pathname == "/"){
+     socket.emit('dis',$('#nameebox').val());
         }
     
 }
@@ -132,30 +135,73 @@ if (performance.navigation.type == 1) {
         }
     }
 }
- function match(){
-    if($('#passwordbox1').val() != $('#confirmpbox').val()){
-        //$('#submitboxreg').hide();
-        // $('#submitboxreg').attr('disabled',true);
-    }
-    else{
-        $('#submitboxreg').removeAttr('disabled');
-    }
-   }
+ // function match(){
+ //    if($('#passwordbox1').val() != $('#confirmpbox').val()){
+ //        //$('#submitboxreg').hide();
+ //        // $('#submitboxreg').attr('disabled',true);
+ //    }
+ //    else{
+ //        $('#submitboxreg').removeAttr('disabled');
+ //    }
+ //   }
+ $('#changee').click(function(){
+    $('#parentpassword').show();
+ })
 
+    $('#confirmbox').click(function(){
+        if(!$('#oldbox').val() || !$('#newbox').val() || !$('#confirmiebox').val()){
+            $('#letter').text('Fields Should Not Be Empty');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });   
+        }
+        else if($('#newbox').val() != $('#confirmiebox').val()){
+            $('#letter').text('Confirm Password Does Not Match!!');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });
+        }
+        else{
+            $('#parentpassword').hide();
+            $.ajax({
+                url:'/chaneg',
+                method:'post',
+                data:{first:$('#oldbox').val(),second:$('#newbox').val(),usere:userb.text()},
+                success:function(data){
+                    console.log('succe')
+                },
+                error:function(){
+                    $('#letter').text('Old Password is different');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });   
+                }
+            })
+        }
+
+    })
    function matchname(){
         socket.emit('match','left');
    }
 
    socket.on('matching',function(data){
     console.log(data);
-    var po;
-    for(po=0 ; po<data.length ;po++){
+    
+    for(po=0;po<data.length;po++){
+        
         if(data[po]==$('#namebox').val()){
+            console.log(po);
             $('#alertuser').text('Name is already taken!!');
             // $('#namebox').css('border-color','red');
+            submitboxreg.attr('disabled',true);
+            break;
         }
         else{
             $('#alertuser').text('');
+            submitboxreg.removeAttr('disabled');
         }
     }
    })
@@ -202,12 +248,12 @@ var dataaa;
 var dori=[];
 setTimeout(function(){
     if (window.location.pathname == "/") {
-    $('#parentname').show();;
+        $('#parentname').show();;
     
     }
     else{
         socket.emit('going',userb.text());
-        console.log()
+        // console.log()
     }
 },6000)
    // $(".facemocion").faceMocion();
@@ -218,7 +264,7 @@ $(document).ready(function(){
     let inp=$('#inp');
     let inpu=$('#inpu')
     let profile=$('#profile');
-    let room=$("#room");
+    
     let divr=$('#list');
     var btn3=$('#close1');
     var btnc=$('#close22');
@@ -287,7 +333,7 @@ $(document).ready(function(){
     socket.on('lets',function(idle,del){
         $('#parentid').hide();
         if(idle[net]!=del){
-            $('#ide').text('incorrect Id.. Try Again!!')
+            $('#ide').text('Incorrect Id.. Try Again!!')
             $('#parentid').show();    
         }
         else{
@@ -337,11 +383,26 @@ $(document).ready(function(){
         div2.hide();
         div1.css('opacity','1');
     })
+    $('#profileru').click(function(){
+         vds=userb.text();
+        console.log(vds);
+        // socket.emit('value',vds);
+         venom();
+         $(this).hide();
+         divr.animate({"top":"+=450px"},"slow");
+        $('#propru').show();
+    })
+    $('#propru').click(function(){
+        $(this).hide();
+        divr.animate({"top":"-=450px"},"slow");
+        $('#profileru').show();
+    })
+
     profile.click(function(){
          vds=userb.text();
         console.log(vds);
         socket.emit('value',vds);
-         displayfriend();
+         displayfriend(userb.text());
          $(this).hide();
          divr.animate({"top":"+=450px"},"slow");
         $('#prop').show();
@@ -383,7 +444,7 @@ $(document).ready(function(){
     // $('#true').clickOutsideThisElement(function(){
     //     $('#true').hide();
     //     $('#parentsocket1').css("opacity","1");
-    // })
+    //  okrrom})
     
     $('#hide').click(function(){
         $('#menu').toggle();
@@ -409,14 +470,39 @@ $(document).ready(function(){
                 reader.readAsDataURL(file);
             }
         });
+    $('#demo').click(function(){
+        $('.preloader').show();
+        // $('.preloader').fadeOut(5000);
+        $('body').css('opacity','0.5');
+        setTimeout(function(){
+            $('.preloader').hide();
+            $('body').css('opacity','1');
+        },3000)
+    })
 
-
-        //     $('#myImage').change(function(e){
-        //     var fileName = e.target.files[0].name;
-        //     socket.emit('user image',name,fileName,username);
-        // })
+        
     submitboxreg.click(function(){
-        socket.emit('tose',$('#namebox').val(),$('#passwordbox1').val())
+        if(!$('#namebox').val() || !$('#passwordbox1').val() || !$('#confirmpbox').val()){
+            $('#letter').text('Fields Should Not Be Empty');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });
+        }
+        else if($('#passwordbox1').val() != $('#confirmpbox').val()){
+            $('#letter').text('Confirm Password Does Not Match!!');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });
+        }
+        else{
+            div2.hide();
+            $('preloader').show();
+            // $('.preloader').fadeOut(3000);
+            $('body').css('opacity','0.5');
+            socket.emit('tose',$('#namebox').val(),$('#passwordbox1').val())
+        }
     })
     socket.on('later',function(name,password){
         $.ajax({
@@ -424,8 +510,9 @@ $(document).ready(function(){
             method:'post',
             data:{username:name,password:password},
             success:function(){
-                div2.hide();
-                div1.css('opacity','0.2');
+                $('.preloader').show();
+                $('body').css('opacity','1');
+                div1.css('opacity','1');
                 $('#successbox').show();
                 $('#tickie').fadeIn();
                 setTimeout(function(){
@@ -438,77 +525,32 @@ $(document).ready(function(){
             }
         })
     })
-     // if(reg.length==0){
-     //        $.ajax({
-     //        url:'/signup',
-     //        method:'post',
-     //        data:{username:name,password:password},
-     //        success:function(){
-     //            div2.hide();
-     //            $('#successbox').show();
-     //            $('#tickie').fadeIn();
-     //            socket.emit('lose',name);
-     //          }
-     //        })
-     //    }
-     //    for(loft=0;loft<reg.length;reg++){
-     //        if(name==reg[loft]){
-
-     //        }
-     //    }
-     //    if(loft==reg.length && reg.length!=0){
-     //        $.ajax({
-     //        url:'/signup',
-     //        method:'post',
-     //        data:{username:name,password:password},
-     //        success:function(){
-     //            div2.hide();
-     //            $('#successbox').show();
-     //            $('#tickie').fadeIn();
-     //            socket.emit('lose',name);
-     //          }
-     //        })
-     //    }   
-    // rebtn.hover(function(){
-    //     outside.show();
-    // },function(){
-    //     outside.hide()
-    // })   
-    // $('#confirmbox').click(function(){
-    //     if($('#newbox').val()!=$('#confirmiebox').val()){
-    //         $('#alertpas').text('Password Does Not Match');
-    //     }
-    //     else
-    //         $.ajax({
-    //             url:'/oldp',
-    //             method:'post',
-    //             data:{}
-    //         })
-    //     }
-    // })
+    
 
 
     redeem.click(function(){
-        var mobile=prompt("Enter your Mobile Number");
+        $('#parentmobile').show();
+    })
+    $('#okmoble').click(function(){
+        $('#parentmobile').hide();
         $.ajax({
             url:'/mobile',
             method:'post',
-            data:{user:userb.text(),mobile:mobile},
+            data:{user:userb.text(),mobile:$('#moblebox').val()},
             success:function(){
                 rap=revo.text(revo.text()-100);
                 retro(revo.text(),userb.text());
          
             }
         })
-        
-        
     })
     yess.click(function(){
         //var nameroom=prompt("Enter the Room Name");
-        socket.emit('roomid',name);
+        $('#parentroom').show();
 
         pubg.hide();
     })
+    
     day1.click(function(){
         console.log('123');
         socket.emit('first','xc');
@@ -634,26 +676,32 @@ $(document).ready(function(){
     })
 
     $('#setting').click(function(){
-        $('#manu').show();
+        $('#manu').toggle();
     })
-
+    $('#liki').click(function(){
+        $(this).css('color','blue');
+        $(this).attr('disabled',true);
+        socket.emit('liki','peo');
+    })
     function add(value){
-        console.log(broom);
         socket.emit('troop',local.text());
-        socket.emit('message',name,value,get.text()); //Emitter1
+        socket.emit('message',$('#nameebox').val(),value,get.text()); //Emitter1
        // socket.emit('name',name);
 
     
     }
-    function exactly(value,room){
-        console.log(userb.text());
-        //result1.append(value);
-        
-        socket.emit('mock',name,value,userb.text(),room);
+    function exactly(value,room111){
+        if(value){
+            //  if(value=="lund" || value=="chutiya" || value=="chutiye" || value=="fuck" || value=="fuck off" || value=="madarchod" || value=="motherfucker"){
+            //     value="****";
+            // }
+            socket.emit('qop',$('#dawn').text());
+            socket.emit('mock',$('#nameebox').val(),value,userb.text(),room111);
+        }
     }
     function addr(value){
         console.log(broom);
-        socket.emit('messager',name,value); //Emitter1
+        socket.emit('messager',$('#nameebox').val(),value); //Emitter1
        // socket.emit('name',name)
     
     }
@@ -686,16 +734,27 @@ $(document).ready(function(){
     socket.on('barb',function(text){
         get.text(text);
     })
+    socket.on('king',function(kutr){
+        $('#rise').text(kutr);
+    })
     socket.on('adde', function (data) {
         console.log("draama");
         if(get.text()==local.text()){
-        $('#parentsocket')
-                    .append(
-                        $('#result').append($('<b>').text(data.id), '<img src="' + data.msg + '"/>'
-                        ))
-                }
+            if(`${data.id}`==$('#nameebox').val()){
+                result.append(`<li><span id="orange"><span id="${data.id}" class="propt"><strong>${data.id}</strong></span><br><span id="mesg"><br><img src="${data.msg}" style="border-radius: 0.25em"></imgEXTERNAL_FRAGMENT></br></span></br>
+                              </span></li>`);
+            }
+            else{
+                result.append(`<li><span id="blue"><span id="${data.id}" class="proptie"><strong>${data.id}</strong></span>
+                     <br><span id="mesg"><br><img src="${data.msg}" style="border-radius: 0.25em"></br></span></br>   
+                       </span></li>`);
+            }
+
+
+
+        }
     });
-    socket.on('addimage', function (data) {
+    socket.on('addimage', function(data){
         
         $.ajax({
             url:'/addimage',
@@ -715,29 +774,37 @@ $(document).ready(function(){
             reader.onload = function (evt) {
                 console.log(evt.target.result)
                 socket.emit('troop',local.text());
-                socket.emit('user image',name, evt.target.result,get.text());   
+                socket.emit('user image',$('#nameebox').val(), evt.target.result,get.text());   
             };
             reader.readAsDataURL(file);
         })
     })
     socket.on('addimageut', function (data) {
+        console.log(data);
+        if($('#dawn').text() == $('#rise').text()){
+            if(`${data.user}`== userb.text()){
+            result1.append(`<li><span id="orange"><span id="${data.user}" class="propt"><strong>${data.user}</strong></span><br><span id="mesg"><br><img src="${data.msg}" style="border-radius: 0.25em"></br></span></br>
+                                  </span></li>`);
+                    }
+             else{
+              result1.append(`<li><span id="blue"><span id="${data.user}" class="proptie"><strong>${data.user}</strong></span>
+                         <br><span id="mesg"><br><img src="${data.msg}" style="border-radius: 0.25em"></br></span></br>   
+                           </span></li>`); 
+                }
+            }
+        
+    });
+    socket.on('addimageuting', function (data) {
         $.ajax({
-            url:'/addu',
+            url:'/addprofile',
             method:'post',
-
-            data:{todo:data},
+            data:{todoing:data},
             success:function () {
                 
-            
-                //localStorage.setItem(`${data.user}`, JSON.stringify(user));
-                $('#parentsocket1')
-                    .append(
-                        $('#result1').append($('<b>').text(data.user) , '<img src="' + data.msg + '"/>'
-                        ))
+                
             }
         })
-
-    });
+    })
     socket.on('addimage1', function (data) {
         $.ajax({
             url:'/add1',
@@ -761,7 +828,7 @@ $(document).ready(function(){
             var file = e.originalEvent.target.files[0];
             var reader = new FileReader();
             reader.onload = function (evt) {
-                socket.emit('user image1',name, evt.target.result);
+                socket.emit('user image1',$('#nameebox').val(), evt.target.result);
             };
             reader.readAsDataURL(file);
         })
@@ -771,16 +838,17 @@ $(document).ready(function(){
             var file = e.originalEvent.target.files[0];
             var reader = new FileReader();
             reader.onload = function (evt) {
-                socket.emit('user imageut',name, evt.target.result,asd);
+                socket.emit('qop',$('#dawn').text());
+                socket.emit('user imageut',userb.text(), evt.target.result,asd);
             };
             reader.readAsDataURL(file);
         })
     })
     socket.on('send_all',function (data) {//Listener 2
         if(get.text()==local.text()){
-        if(`${data.id}`==name){
-        result.append(`<li><span id="orange"><span id="${data.id}" class="propt"><strong>${data.id}</strong></span><br><span id="mesg"><br><${data.msg}</br></span>
-                        </span></br></li>`);
+        if(`${data.id}`==$('#nameebox').val()){
+        result.append(`<li><span id="orange"><span id="${data.id}" class="propt"><strong>${data.id}</strong></span><br><span id="mesg"><br>${data.msg}</br></span></br>
+                              </span></li>`);
                 }
          else{
           result.append(`<li><span id="blue"><span id="${data.id}" class="proptie"><strong>${data.id}</strong></span>
@@ -793,9 +861,6 @@ $(document).ready(function(){
     });
 
     socket.on('send_all1',function (data) {
-        var id=data.id;
-        var msg=data.msg;
-        var user=data.user;
         $.ajax({
             url: '/add',
             method: 'post',
@@ -817,9 +882,27 @@ $(document).ready(function(){
     })
    
     socket.on('sap1',function (data) {
-        result1.append(`<li>${data.user}:${data.msg}  
-                       </li>`);
-        var id=data.id;
+        if($('#dawn').text() == $('#rise').text()){
+            if(`${data.user}`== userb.text()){
+            result1.append(`<li><span id="orange"><span id="${data.user}" class="propt"><strong>${data.user}</strong></span><br><span id="mesg"><br>${data.msg}</br></span></br>
+                                  </span></li>`);
+                    }
+             else{
+              result1.append(`<li><span id="blue"><span id="${data.user}" class="proptie"><strong>${data.user}</strong></span>
+                         <br><span id="mesg"><br>${data.msg}</br></span></br>   
+                           </span></li>`); 
+                }       
+            }
+
+
+        // result1.append(`<li>${data.user}:${data.msg}</li>`);
+       
+        })
+    })
+
+    socket.on('saping',function (data) {
+        
+         var id=data.id;
         var msg=data.msg;
         var user=data.user;
         $.ajax({
@@ -828,18 +911,10 @@ $(document).ready(function(){
             data: {todo: data},
             success: function() {
                 
-                
-                //if (user) {
-                    
-                //}
-                // else {
-                //     todoList.push(data);
-                //     localStorage.setItem('todoList', JSON.stringify(todoList));
-                //     //result.append(`<li>${data.id}:${data.msg} </li>`);
-                // }
-            }
-        })
+               }
+            })
     })
+
     socket.on('send_allr',function (data) {//Listener 2
         
         dataaa=`${data.user}`;
@@ -875,12 +950,12 @@ $(document).ready(function(){
                               </span></li>`)
             }
             else {
-                result.append(`<li>${d.name}:<img src="${d.message}"></li>`)
+                result.append(`<li><span id="orange"><span id="${d.name}" class="propt"><strong>${d.name}</strong></span><br><span id="mesg"><br><img src="${d.message}" style="border-radius: 0.25em"></br></span></br>
+                              </span></li>`)
                 }
             }
             else{
                 if (d.message[6]!='/') {
-                //console.log(name1);
                 result.append(`<li><span id="blue"><span id="${d.name}" class="proptie"><strong>${d.name}</strong></span>
                     <button onclick="request1(this)" id="requse">Request</button>
                                 <button onclick="roomreq(this)" id="quickie">Quick Chat</button>
@@ -888,7 +963,8 @@ $(document).ready(function(){
                                  </span></li>`)
             }
             else {
-                result.append(`<li>${d.name}:<img src="${d.message}"></li>`)
+                result.append(`<li><span id="blue"><span id="${d.name}" class="proptie"><strong>${d.name}</strong></span><br><span id="mesg"><br><img src="${d.message}" style="border-radius: 0.25em"></br></span></br>
+                              </span></li>`)
                 }
             }   
             
@@ -909,6 +985,7 @@ $(document).ready(function(){
    
          socket.on('lonely',function(v) {
                // userb.text(v);
+
                displayCall1(v);
                displayreward(v);
                //displaypic(v);
@@ -932,11 +1009,14 @@ $(document).ready(function(){
     }
     function render3(data) {
          data.forEach(function(d) {
-             console.log(d);
-                room.append(`<li><span id="span">${d.request}</span>
+                console.log(d);
+            if(d.request == userb.text()){
+             
+                mone.append(`<li><span id="span">${d.name}</span>
                      <button onclick="addlist(this)" id="yessie" class="fas fa-check"></button>
                      <button onclick="remove(this)" id="nooe" class="fas fa-times"></button>   
                        </li>`);
+            }
            
         })
     }
@@ -977,16 +1057,23 @@ $(document).ready(function(){
         displaypic(v);
     }
     function sdde(data){
+        // $('.preloader1').show();
+        // $('body').css('opacity','0.5');
+        // setTimeout(function(){
+        //     $('.preloader1').hide();
+        //     $('body').css('opacity','1');
+        // },5000);
         data.forEach(function(d){
             console.log(d);
             friend.append(`<li id="froe">
-                            <button onclick='openat(this)' id="myfriend">${d.name}</button>
+                            <button onclick='openat(this)' id="Adminq">${d.name}</button>
                             <button hidden>${d.room}</button>
                         </li>`)
         })
     }
 
-    function displayfriend() {
+    function displayfriend(fro) {
+        mone.empty();
         $.ajax({
             url: '/displayf',
             method: 'post',
@@ -998,6 +1085,7 @@ $(document).ready(function(){
         })
 
     }
+    
     function displaypic(v) {
         $.ajax({
             url: '/display2',
@@ -1019,14 +1107,14 @@ $(document).ready(function(){
    
 
 
- })
+ 
 
    
 
     function request1(el){
-        var c=$(el).prev().prev().text();
+        var c=$(el).prev().text();
         console.log(c);
-        socket.emit('reply',c,name)
+        socket.emit('reply',c,$('#nameebox').val())
        
         
         
@@ -1035,42 +1123,48 @@ $(document).ready(function(){
             var that=el;
             var pc=$(el).prev().prev().text();
             console.log(pc);
-            console.log(name);
+            console.log($('#nameebox').val());
             loot=name;
             $(el).attr('disabled',true);
             setTimeout(function(){$(el).removeAttr("disabled")},5002);
-            socket.emit('quick',pc,name);
+            socket.emit('quick',pc,$('#nameebox').val());
         }
-        socket.on('back',function(data){
+        socket.on('back',function(data,dep,rew){
 
-        $.ajax({
-            url:"/friendss",
-            method:"post",
-            data:{todo2:data},
-            success:function(){
-                console.log("success")
-                
-            },
-            error:function(){
-                
-                $.ajax({
-                    url:"/deletet",
-                    method:"post",
-                    data:{todo3:data},
-                    success:function(){
-                        console.log("hogya")
-                    }
-                })
-            $('#letter').text('User need to Login First');
-            $('#alexa').show();
-            $('#alexa').animate({"top":"+=42%"},"fast")
-            $('#alexa').css({"animation-name": "boxanimate" });
-            $('#alexa').css({"animation-duration": "1s" });
+
+            if(rew.length==0){
+                $('#letter').text('User need to Register First');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });
             }
+            for(nec=0;nec<rew.length;nec++){ 
+                console.log(dep);
+               if(rew[nec] == dep && rew[nec] == data){
+                console.log("eres") 
+                $.ajax({
+                        url:"/friendss",
+                        method:"post",
+                        data:{todo2:data,tomo:dep},
+                        success:function(){
+                            console.log("success");
+                        }
+                    })
+                break;
+                }
+            }
+            if(nec==rew.length && rew.length!=0){
+                    $('#letter').text('User need to Register First');
+                    $('#alexa').show();
+                    $('#alexa').animate({"top":"+=42%"},"fast")
+                    $('#alexa').css({"animation-name": "boxanimate" });
+                    $('#alexa').css({"animation-duration": "1s" });
+            }
+       
             
 
-        })
-        console.log("anyone");
+       
     })
         socket.on('jerk',function(all,status,idle,room1,usercount,name,id){
             
@@ -1126,7 +1220,7 @@ $(document).ready(function(){
             method:'get',
             success:function(data){
                 data.forEach(function(d){
-                    if(d.user1==name || d.user2==name){
+                    if(d.user1==$('#nameebox').val() || d.user2==$('#nameebox').val()){
                         conroom.append(`<li id="rooney"><button onclick="text(this)" class="globally" id='${d.room}'>${d.room}</button></li>`)
                     }
                 })
@@ -1138,30 +1232,60 @@ $(document).ready(function(){
         var cx=$(el).prev().text();
         $(el).parent().remove();
         vds=userb.text();
-        namefriend=prompt("enter a room");
+        IDGenerator();
+        console.log(specs);  
         $.ajax({
             url:"/room",
             method:"post",
-            data:{room:namefriend},
+            data:{room:specs},
             success:function(){
                 console.log("room created");
-            },
-            error:function(){
-                namefriend=prompt("room is taken...Enter again");
             }
         })
-        console.log(vds);
+        $.ajax({
+            url:"/remove",
+            method:"post",
+            data:{vet:userb.text()},
+            success:function(){
+                console.log("delhi");
+            }
+        })
         socket.emit('value',vds);
-        socket.emit('fire',cx,namefriend);
+        socket.emit('fire',cx,specs);
         }
         
+        function IDGenerator() {
+          this.length = 8;
+         this.timestamp = +new Date;
+         trap();    
+
+         function _getRandomInt( min, max ) {
+            return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+         }
+         
+            function trap() {
+             var ts = this.timestamp.toString();
+             var parts = ts.split( "" ).reverse();
+             var id = "a";
+             
+             for( var i = 0; i < this.length; ++i ) {
+                var index = _getRandomInt( 0, parts.length - 1 );
+                id += parts[index];  
+             }
+             specs=id;
+             return id;
+         }
+
+         
+     }
+
     socket.on('ztrack',function(we,se){
         $.ajax({
             url:"/addlist",
             method:"post",
             data:{todo33:we,vet:userb.text(),todo11:se},
             success:function(){
-                friend.append(`<li id="froe"><button onclick='openat(this)'>${we}</button>
+                friend.append(`<li id="froe"><button onclick='openat(this)' id="Adminq">${we}</button>
                                     <button hidden>${se}</button>
                                 </li>`)
             }
@@ -1179,15 +1303,27 @@ $(document).ready(function(){
         })  
     }
     function openat(el){
+        $('#inpu').css('display','inline-block');
+        $('myImageu').show();
+        $('#btnu').show();
+        $('#attachement').show();
+        $('#chatidin').show();
+        $('#cas1').show();
+        $('#cap12').show();
+        $('#cap11').show();
+        $('#casing1').show();
+        $('#caping12').show();
+        $('#caping11').show();
+        $('#chatidin').text($(el).text())
         pack=$(el).text();
          asd=$(el).next().text();
-         roka.text($(el).next().text());
+         $('#dawn').text($(el).next().text());
         vds=userb.text();
         console.log(vds);
         result1.empty();
         sow.text(pack);
         sow.show();
-        //socket.emit('create',asd,vds);
+        socket.emit('create',asd);
         socket.emit('alpha',asd);        
         //     }
         // })
@@ -1202,8 +1338,38 @@ $(document).ready(function(){
             success:function (data){
                 console.log(data)
                 data.forEach(function(d){
-                    console.log(d)
-                    result1.append(`<li>${d.name}:${d.message}</li>`);
+                    console.log(d);
+                    if(d.name==userb.text()){       
+                        if (d.message[2]!='/' && d.message[8]!='/') {
+                            //console.log(name1);
+                            result1.append(`<li><span id="orange"><span id="${d.name}" class="propt"><strong>${d.name}</strong></span><br><span id="mesg"><br>${d.message}</br></span></br>
+                                          </span></li>`)
+                        }
+                        else {
+                            result1.append(`<li><span id="orange"><span id="${d.name}" class="propt"><strong>${d.name}</strong></span><br><span id="mesg"><br><img src="${d.message}" style="border-radius: 0.25em"></br></span></br>
+                                          </span></li>`)
+                            }
+                        }
+                        else{
+                            if (d.message[2]!='/' && d.message[8]!='/') {
+                            result1.append(`<li><span id="blue"><span id="${d.name}" class="proptie"><strong>${d.name}</strong></span>
+                                            <br><span id="mesg"><br>${d.message}</br></span></br>
+                                             </span></li>`)
+                        }
+                        else {
+                            result1.append(`<li><span id="blue"><span id="${d.name}" class="proptie"><strong>${d.name}</strong></span><br><span id="mesg"><br><img src="${d.message}" style="border-radius: 0.25em"></br></span></br>
+                                          </span></li>`)
+                            }
+                        }
+                    // if(d.name==userb.text()){
+                    //     result1.append(`<li><span id="orange"><span id="${d.name}" class="propt"><strong>${d.name}</strong></span><br><span id="mesg"><br>${d.message}</br></span></br>
+                    //           </span></li>`);
+                    // }
+                    // else{
+                    //     result1.append(`<li><span id="blue"><span id="${d.name}" class="proptie"><strong>${d.name}</strong></span><br><span id="mesg"><br>${d.message}</br></span></br>
+                    //           </span></li>`);
+                    // }
+                    
                 })
             }
         })
@@ -1211,7 +1377,7 @@ $(document).ready(function(){
         socket.on('remorse',function(data,clients,get){
               console.log(clients);
             for(i=0;i<clients.length;i++){
-                if(clients[i]==name){
+                if(clients[i]==$('#nameebox').val()){
                     console.log(clients)
                     $('#nameuser').text(`${get}`);
                     pubg.show();
@@ -1227,27 +1393,34 @@ $(document).ready(function(){
             pubg.hide();
             //console.log('towards');
         }
-        socket.on('actual',function(samne,apan,arraay){
-             nameroom=prompt("Enter the Room name");
-            if(nameroom==""){
-                 nameroom=prompt("Enter the Room name");
+
+        $('#okrrom').click(function(){
+        socket.emit('roomid',$('#rrombox').val());
+    })
+
+        socket.on('actual',function(samne,entwe,arraay){
+            $('#parentroom').hide();
+            if(entwe==""){
+                 $('#parentroom').show();
+            }
+            if(arraay.length==0){
+                socket.emit('insert',$('#rrombox').val(),samne,$('#nameebox').val());
             }
             for(i=0;i<arraay.length;i++){
-               while(nameroom==arraay[i]){
-                 nameroom=prompt("Room is taken!! Try another name");
+               if(entwe==arraay[i]){
+                $('#rrom').text('Room is Taken...Enter Again!!')
+                 $('#parentroom').show();
+                 break;
                }
-           } 
-            socket.emit('insert',nameroom,samne,apan,del);
+           }
+           if(i==arraay.length && arraay.length!=0){ 
+            socket.emit('insert',$('#rrombox').val(),samne,$('#nameebox').val());
+            }
                
         })
 
         socket.on('chale',function(rona,samne,apan,all){
-           //  console.log(samne);
-           //  console.log(apan);
-           //  roomie.push(samne);
-           //  oppo.push(rona);
-           // console.log(oppo);
-           // console.log(roomie);
+           
                 $.ajax({
                     url:'/create',
                     method:'post',
@@ -1264,7 +1437,7 @@ $(document).ready(function(){
                         console.log("putting");
                     }
                 })
-                if(samne==name ||apan==name){
+                if(samne==$('#nameebox').val() ||apan==$('#nameebox').val()){
                     console.log("createdS")
                   // var endTime = new Date();          
             
@@ -1308,6 +1481,7 @@ $(document).ready(function(){
             qwe=$(el).text();
             socket.emit('new1',qwe);
             local.text($(el).text());
+            $('#chatid').text($(el).text());
             // dori=JSON.parse(localStorage.getItem(`${qwe}`)) || []; 
             //console.log(dori);
             
@@ -1406,37 +1580,39 @@ $(document).ready(function(){
                 }
             })    
         })
-        socket.on('lucy',function(dom){
-            venom();
-        })
+        
+            
         function venom(){
+            $('#lucy').empty();
             $.ajax({
                 url:'/pattern',
                 method:'get',
                 success:function(data){
                     console.log(data);
                     data.forEach(function(d){
-                        $('#lucy').append(`<li>${d.name}-${d.message}</li>`)
+                        // $('#lucy').empty() room;
+                        $('#lucy').append(`<li><span>${d.name}</span>:<span>${d.message}</span><button onclick="repel(this)">remove</button></li>`)
                     })
                 }
             })
         }
-        // $('#timer').click(function(){
-        //     socket.emit('timer','tym')
-           
-        //     })
-        // socket.on('tym',function(data){
-        //      var endTime = new Date();          
+        
+        function repel(el){
+            console.log($(el).prev().prev().text());
             
-            
-        //     endTime.setDate(endTime.getDate()+1);
-        //     endTime.setSeconds(endTime.getSeconds()-1);
-        //     // var now = new Date();
-        //     makeTimer(endTime)
-        // })
+            $.ajax({
+                url:'/remob',
+                method:'post',
+                data:{mo:$(el).prev().prev().text()},
+                success:function(data){
+                    $(el).parent().remove();
+                }
+            })
+        }
+
         function makeTimer(room1) {
             
-            var endTime=new Date("29 April 2018 10:00:00 GMT+05:30") 
+            var endTime=new Date("29 April 2018 10:00:00 GMT+05:30")
             endTime = (Date.parse(endTime) / 1000);
             setInterval(function(){
             var now = new Date();

@@ -4,17 +4,112 @@
     <meta charset="UTF-8">
     <title>Socket</title>
     <link rel="stylesheet" href="socket.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
-	<button id="day1">Day1</button>
-	<button id="day2">Day2</button>
-	<button id="day3">Day3</button>
-	<button id="day4">Day4</button>
-	<button id="day5">Day5</button>
-	<button id="day6">Day6</button>
-	<button id="day7">Day7</button>
-	<ul id="lucy"></ul>
-  	<button id='timer'>Timer</button>
+	
+	<div id="snow1"></div>
+    <div id="snow2"></div>
+    <div id="snow3"></div>
+    <ul id="menu">
+    	<span id="dawn" style="color: white;" hidden>Global</span>
+        <span id="rise" style="color: white;" hidden>Globall</span>
+        <li id="tag" class="active" title="Home"><button id="day1">Day1</button></li>
+        <li id="tag" title="Redeem"><button id="day2">Day2</button></li>
+        <li id="tag" title="Help"><button id="day3">Day3</button><button id="day4">Day4</button></li>
+        <li id="tag" title="Settings"><button id="day5">Day5</button><button id="day6">Day6</button></li>
+        <li id="tag" title="Logout"><form action="/logout" method="get" id="loggie"><button id="power" class="fas fa-power-off"></button></form></li>
+        <li id="tag"><button id="image"></button></li>
+    </ul>
+    
+    
+    <span id="true" hidden></span>
+    <button id="hide" class="fas fa-bars"></button><button id="hile" class="fas fa-ellipsis-h"></button>
+    
+    <!-- <form action="/logout" method="get">
+        <button id="logout">Logout</button>
+        </form> -->
+        
+    <span id="manu" hidden>
+        <button id="bg">Change Background Image
+                <input type="file" id="background" accept="image/*" title="" />        
+        </button>
+        <button id="pfimg">Change Profile Picture<input type="file"  id="file" accept="image/*" /></button>
+        <button id="changee">Change Password</button>
+    </span>
+        
+        <span id="top"> </span>
+    <span id="roka"></span>
+<span id="reward"></span>
+    <button id="rebtn">Redeem</button>
+    <span id="outside" hidden>
+         <button id="closereward" class="fas fa-times"></button>
+        <button id="redeem" disabled>30 Rupees PAYTM</button>
+        <button id="more" class="fas fa-plus-circle">More to Come</button>
+    </span>
+<div id="parentsocket1">
+    <textarea type="text" placeholder="Type your Text Here" id="inpu" hidden></textarea>
+
+    <!-- <input type="text" value="amo" class="facemocion"/> -->
+    <input type="file" id="myImageu" hidden>
+    <button id="btnu" type="submit" hidden></button>
+    <button id="attachement" hidden></button>
+    
+    <div id="show" hidden></div>
+    
+    <span id="lengthy">
+        <ul id="result1"></ul>
+    </span>
+    
+    
+    <div id="user">
+        <span id="hello">Hello</span>
+        <span id="Registery"><%= name %></span>
+    </div>
+</div>
+
+<div id="box" hidden>
+        <button id="first" class="button" disabled>5</button>
+        <button id="second" class="button" disabled>5</button>
+        <button id="third" class="button" disabled>10</button>
+        <button id="fourth" class="button" disabled>10</button>
+        <button id="fifth" class="button" disabled>15</button>
+        <button id="sixth" class="button" disabled>20</button>
+   </div>
+
+
+   <div id="parentpassword" hidden>
+    <div id="childpassword">
+            <!-- <a href="/auth/facebook"><button id="fbreg"><img id="fbb" src="nf/signup-with-facebook-button.png"></button></a> -->
+            <button id="close2"><img src="nf/cancel-music.png" id="img4"></button>
+            <div id="oldie">Old Password</div><span id="alerting"></span>
+            <input type="text" name="username" id="oldbox" placeholder="Enter Your Old Password" autocomplete="off">
+            <div id="newie">New Password</div>
+            <input id="newbox" type="password" name="password" placeholder="Password">
+            <div id="confirmie">Confirm Password:</div>
+            <input id="confirmiebox" placeholder="Re-enter the Pasword " type="password" >
+            <span id="alertpas"></span>
+            <button id="confirmbox">Confirm</button>
+    </div>
+</div>
+
+<div id="parentmobile" hidden>
+    <div id="childmobile">
+            <div id="moble">Enter Your Mobile Number..</div>
+            <input type="text" id="moblebox" autocomplete="off">
+            <button id="okmoble">OK</button>
+    </div>
+</div>
+
+<div id="list" >
+    <ul id="lucy" style="-webkit-padding-start: 0;"></ul>
+    <button id="propru" hidden><img src="nf/chevron-up.png" id="up"></button>
+    <button id="profileru"><img src="nf/chevron-up.rotated.png" id="up"></button>
+</div>
+
+    <span id="frndlist">Friend List</span>
+    <ul id="fff">
+    </ul>
 <script type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>

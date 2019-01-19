@@ -23,9 +23,28 @@ function encrypt(username, password, cb) {
 function compare(password, hash, cb) {
     bcrypt.compare(password, hash, function(err, res) {
         cb(res);
+        console.log(res);
     });
 
 }
+function compared(password, hash, cb) {
+    bcrypt.compare(password, hash, function(err, res) {
+        cb(err,res);
+    });
+
+}
+
+function trwe(username,password,cb){
+    console.log(username);
+    bcrypt.genSalt(saltRounds,function(err,salt){
+        bcrypt.hash(password,salt,function(err,hash){
+            database.renew(username,hash,function(data){
+                cb(data);
+            })
+        })
+    })
+}
+
 var i=1;
 function display(connection, cb) {
     connection.query('SELECT * FROM task', function (error, results, fields) {
@@ -34,6 +53,7 @@ function display(connection, cb) {
     });
 
 }
+
 
 // function insert(connection, todo, cb) {
 //
@@ -60,7 +80,9 @@ module.exports = {
     encrypt,
     compare,
     display,
+    trwe,
     //insert,
+    compared,
     deleteItem,
     //signUp
     //  usertable

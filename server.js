@@ -26,6 +26,7 @@ var vet;
 var sd;
 var tr;
 var des;
+var like=0;
 var messages=[];
 var usercount=0;
 //var $=jQuery.again();
@@ -46,7 +47,7 @@ var wer;
 var globa;
 var idle=[];
 var roomie=[];
-var reg=[];
+var reg=['Admin','sanji','zoro'];
 var iduser=[];
 const storage=multer.diskStorage({
     destination: 'public/',
@@ -97,26 +98,27 @@ app.post('/login', passport.authenticate('local',
 
 passport.use(new passportLocal(
     function(username, password, done) {
-        database.getUser(username, function(data) {
-            tv=username;
+        database.getUser(username, function(err,data) {
 
-            if(username !== data[0].username) {
-                return done(null, false, {message: 'username is incorrect'});
+            if(err) {
+                console.log('first');
+                return done(null,false,{message:'username is incorrect'})
             }
+            else{
+                console.log('second');
+
 
             operations.compare(password, data[0].password, function(show){
-
                 if(!show) {
                     return done(null, false, {message: 'password is incorrect'});
                 }
 
-
-
+                
                 return done(null, data[0].username);
 
 
-            });
-
+                });
+            }
         })
 
     })
@@ -139,34 +141,28 @@ passport.use(new FacebookStrategy({
     profileFields:['id','displayName','picture']
     }, function(accessToken, refreshToken, profile, done) {
             profile.displayName=profile.displayName.replace(" ","");
-            console.log(profile.photos[0].value);
             for(lo=0;lo<reg.length;lo++){
+                console.log(lo);
+                if(profile.displayName==reg[lo] || reg.length===0) {
                 database.st('luffy',function(err,data){
                     done(err,profile.displayName);
-                })
+                        console.log("pattern")
+                    })
+                }
             }
-
-            if(lo==reg.length && reg.length==0){
+            if(lo>reg.length && reg.length!=0){
           operations.encrypt(profile.displayName, accessToken, function (err,data) {
                 reg.push(profile.displayName);
+                console.log(reg);
                   // fs.mkdirSync(`Users/${profile.displayName}`);
                             // console.log('created')
                 
             lo=0;
         
           database.insertx(profile.photos[0].value, profile.displayName, function (err, data) {
-                        //  if (err) {
-                          
-                        //     throw err;
-                        //  }
-                        // else {
-                           // Maintaining Index on Server
                             index++;
                             //res.send(index.toString());
                             done(err,profile.displayName);
-                            console.log(data);
-                            // console.log(data);
-                        //}
 
                         });
       })
@@ -183,8 +179,10 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook',
 app.get(`/success`, function(req,res) {
     
     v=req.user;
-    if(req.user=='luffy'){
-        res.render('quickchat.ejs');
+    if(req.user=='Admin'){
+        res.render('quickchat.ejs',{
+            name:'Admin'
+        });
     }
     else{
         res.render('indo.ejs',{
@@ -262,10 +260,11 @@ app.post('/addimage', function(req,res) {
          var data = req.body.todo.msg.replace(/^data:image\/\w+;base64,/, "");
 
          var buf = new Buffer(data, 'base64');
-         fs.writeFile(`public/images/image${tik}.jpg`, buf);
+         
+         fs.writeFile(`public/images/image${tik}.png`, buf);
          
          //console.log(tik);
-       database.addimage(req.body.todo.id,`image${tik}.jpg`,req.body.userr, function (err, data) {
+       database.addimage(req.body.todo.id,`image${tik}.png`,req.body.userr, function (err, data) {
             if (err) {
                 throw err;
             }
@@ -279,7 +278,36 @@ app.post('/addimage', function(req,res) {
             tik++;
         })
    })
-   
+   var set=1;
+app.post('/addprofile',function(req,res){
+        var data = req.body.todoing.msg.replace(/^data:image\/\w+;base64,/, "");
+
+         var buf = new Buffer(data, 'base64');
+         fs.writeFile(`public/Users/${req.body.todoing.user}/image${set}.png`, buf);
+
+         database.insertimage(req.body.todoing.id,`image${set}.png`,req.body.todoing.samne,req.body.todoing.user,function(err,data){
+            res.send(data);
+         })
+         set++;
+}) 
+app.post('/add1', function(req,res) {
+    var data = req.body.pic.msg.replace(/^data:image\/\w+;base64,/, "");
+
+         var buf = new Buffer(data, 'base64');
+         fs.writeFile(`public/Users/${req.body.user}/profile.png`, buf);
+        database.insert1('profile.png', req.body.user, function (err, data) {
+                         
+                        //else {
+                           // Maintaining Index on Server
+                         //   index++;
+                            //res.send(index.toString());
+                            res.send(data);
+                            console.log(data);
+                            // console.log(data);
+                        
+
+                        });
+});  
 app.post('/addu', function(req,res) {
     // if(typeof (req.body.todo) != "string" ) {
     //     res.sendStatus(500);
@@ -333,37 +361,38 @@ app.post('/display2', function(req,res) {
 
     })
 });
-app.post('/add1', function(req,res) {
-    var data = req.body.pic.msg.replace(/^data:image\/\w+;base64,/, "");
+app.post('/chaneg',function(req,res,next){
+    database.getUser(req.body.usere, function(data) {
 
-         var buf = new Buffer(data, 'base64');
-         fs.writeFile(`public/Users/${req.body.user}/profile.jpg`, buf);
-        database.insert1('profile.jpg', req.body.user, function (err, data) {
-                         
-                        //else {
-                           // Maintaining Index on Server
-                         //   index++;
-                            //res.send(index.toString());
-                            res.send(data);
-                            console.log(data);
-                            // console.log(data);
-                        
+            console.log(data[0].username);
+            // console.log(data[0].password);
+            operations.compared(req.body.first, data[0].password , function(err,data){
+                if(!data){ next(err);}
+                    
+                else{
+                    operations.trwe(req.body.usere,req.body.second,function(err,data){
+                         res.send(data);
+                     })
+                }
 
-                        });
-});
+            });
+
+        })
+})
+
+app.post('/remob',function(req,res){
+    database.info(req.body.mo,function(data){
+        res.send(data);
+    })
+})
+
 app.post('/friendss',function(req,res,next){
-    database.check(req.body.todo2.send,req.body.todo2.rec,function(err,data){
-            console.log(req.body.todo2.send);
-            console.log(req.body.todo2.rec);
-         if(err){
-            next (err);
-         }
-     })
-        //      console.log(err);
+
+                
         //     console.log("error");
          
            
-              database.insert22(req.body.todo2.send,req.body.todo2.rec,function(err,data){
+              database.insert22(req.body.todo2,req.body.tomo,function(err,data){
     //     // if(err){
     //     //     next(err);
     //     // }
@@ -411,7 +440,7 @@ app.get('/logout', function(req,res) {
     res.redirect('/');
 });
 app.post("/room",function(req,res,next){
-    console.log("loki");
+    console.log(req.body.room);
     database.room(req.body.room,function(err,data){
         console.log("hero");
          res.send(data);
@@ -480,12 +509,12 @@ io.on('connection',function (sk) {
         sk.emit('rewardie','try');
         
         sk.on('going',function(data){
-        if(data=='luffy'){
-            sk.emit('lucy',data);
-        }
-       else{  
+        // if(data=='luffy'){
+        //     sk.emit('lucy',data);
+        // }
+       // else{  
          sk.emit('lonely',data);    
-            }
+            // }
         })
     // }
     // sk.on('chatt',function(data){
@@ -501,6 +530,10 @@ io.on('connection',function (sk) {
         sk.emit('matching',reg);
     })
 
+    sk.on('liki',function(data){
+        like++;
+        console.log(like);
+    })
 
     sk.on('join1',function (connected,active,id) {
         usercount++;
@@ -508,7 +541,6 @@ io.on('connection',function (sk) {
          
             console.log(usercount);
             all.push(connected);
-        //}
          idle.push(id);
         io.emit('people',connected,usercount);
         console.log( connected+" is connected");
@@ -534,6 +566,9 @@ io.on('connection',function (sk) {
     sk.on('troop',function(text){
         io.emit('barb',text);
     })
+    sk.on('qop',function(teppe){
+        io.emit('king',teppe);
+    })
     sk.on('arch',function(text1){
         io.emit('bishop',text1);
     })
@@ -552,9 +587,10 @@ io.on('connection',function (sk) {
 
     sk.on('mock',function (name,data1,user,tot) {//Listener1
            // io.emit('sap',{id:name,msg:data1,user:user,samne:tot});    
-            //console.log(10);
-        sk.join(tot);
-        io.to(tot).emit('sap1',{id:name,msg:data1,user:user,samne:tot});
+            // console.log(tot);
+        // sk.join(tot);
+        io.emit('sap1',{id:name,msg:data1,user:user,samne:tot});
+        sk.emit('saping',{id:name,msg:data1,user:user,samne:tot});
     });
    
 
@@ -564,9 +600,9 @@ io.on('connection',function (sk) {
     
     })
     sk.on('user imageut',function (name,image,room) {
-        sk.join(room)
-        io.to(room).emit('addimageut',{id:name ,user:vet,msg:image,samne:room});
-
+        // sk.join(room);
+        io.emit('addimageut',{id:name,user:name,msg:image,samne:room});
+        sk.emit('addimageuting',{id:name,user:name,msg:image,samne:room});
     })
     sk.on('user image1',function (name,image) {
         sk.emit('addimage1',{id:name ,user:vet,msg:image});
@@ -574,13 +610,14 @@ io.on('connection',function (sk) {
     })
     sk.on('reply',function(c,d){
         console.log(d);
-        sk.emit('back',{send:d,rec:c});
-        })
+        sk.emit('back',c,d,reg);
+    })
     sk.on('fire',function(cx,dx){
         sk.emit('ztrack',cx,dx);
     })
     sk.on('alpha',function(ed){
         tr=ed;
+        sk.join(ed);
         sk.emit('beta',ed);
     })
     
@@ -595,9 +632,10 @@ io.on('connection',function (sk) {
     sk.on('cut',function(name){
         clients.splice(`${name}`,1);
     })
-    sk.on('roomid',function(name){
+    sk.on('roomid',function(enter){
         // room1.push(nameroom);
-        sk.emit('actual',wer,name,room1);
+        console.log(wer);
+        sk.emit('actual',wer,enter,room1);
     })
     sk.on('insert',function(again,samne,apan){
          room1.push(again);
@@ -654,6 +692,9 @@ io.on('connection',function (sk) {
     // sk.on('timer',function(data){
     //     io.emit('tym','asd');
     // })
+    sk.on('create',function(datw){
+        // sk.join(datw);
+    })
     sk.on('tose',function(name,password){
         sk.emit('later',name,password,reg);
     })

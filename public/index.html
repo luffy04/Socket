@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Socket</title>
+    <title>Talkie</title>
     <link rel="stylesheet" href="socket.css">
     <link href="faceMocion.css" rel="stylesheet" type=/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
+    <div class="preloader" hidden></div>
 <!-- <span id="cover"> -->
 <span id="outer">
         <span id="line">
@@ -66,7 +67,7 @@
                 <button class="fas fa-eye" id="eye"></button>
                 <div id="confirmp">Confirm Password:</div>
                 <input id="confirmpbox" onkeyup="match()" placeholder="Re-enter the Pasword " type="password" >
-                <button id="submitboxreg" disabled>Submit</button>
+                <button id="submitboxreg">Submit</button>
         </div>
     </div>
 
@@ -87,7 +88,7 @@
              <span id="alertbox">On <student style="color: red">00:00:00</student> all Rooms will be deleted</span>
         </span>
     <ul id="conroom">
-        <li id="rooney"><button id="global" disabled>Global</button></li>
+        <li id="rooney1"><button id="global" disabled>Global</button></li>
     </ul>
 </span>
 
@@ -95,13 +96,6 @@
 
 <span id="alexa" hidden><span id="inside"><strong><span id="letter"></span></strong><button id="ok">OK</button></span></span>
 
-<!-- <div id="user"> -->
-        <!-- <button id="login"><img src="nf/user.png" id="userpic"><span id="logtext">LOGIN</span></button> -->
-        <!-- <span id ="or">or</span> -->
-     
-       <!-- <button id="Register"><img src="nf/regpic.png" id="regpic"><span id="regtext">REGISTER</span>></button>    -->
-<!-- </div> -->
-        
 <div id="parentname" hidden>
     <div id="childname">
             <div id="namee">Enter Your Name:</div>
@@ -124,11 +118,25 @@
             <button id="okide">OK</button>
     </div>
 </div>
+<div id="parentroom" hidden>
+    <div id="childroom">
+            <div id="rrom">Enter The Room Name</div>
+            <input type="text" id="rrombox" autocomplete="off">
+            <button id="okrrom">OK</button>
+    </div>
+</div>
 <span id="parentsocket">
+
     <span id="length">
         <ul id="result"></ul>
     </span>
-
+    <button id="chatid">Global</button>
+    <span id="cas"></span>
+    <span id="cap"></span>
+    <span id="cap1"></span>
+    <span id="casing"></span>
+    <span id="caping"></span>
+    <span id="caping1"></span>
     <textarea type="text" placeholder="Type your Text Here" id="inp"></textarea>
     
         <button id="btn"  type="submit"></button>
@@ -141,7 +149,7 @@
     
     <div id="requestt" hidden>
      <div id="reqname">
-         <button id="nameuser"></button> sent you a request to join Quick Chat.
+         <button id="nameuser"style="color: #d58512"></button> <span style="color: white">sent you a request to join Quick Chat.</span>
      </div>
      <div id="buttonss"><button>No</button>
          <button id="yess">Yes</button>
