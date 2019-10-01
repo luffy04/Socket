@@ -17,6 +17,8 @@ const operations = require('./operation');
 const socket=require('socket.io');
 const multer=require('multer');
 const fs=require('fs');
+var port = process.env.PORT || 8016;
+
 
 const io=socket(server);
 var v;
@@ -26,6 +28,14 @@ var vet;
 var sd;
 var tr;
 var des;
+var stop="none";
+var box1="disabled";
+var box2="disabled";
+var box3="disabled";
+var box4="disabled";
+var box5="disabled";
+var box6="disabled";
+var box7="disabled";
 var like=0;
 var messages=[];
 var usercount=0;
@@ -98,9 +108,8 @@ app.post('/login', passport.authenticate('local',
 
 passport.use(new passportLocal(
     function(username, password, done) {
-        database.getUser(username, function(err,data) {
-
-            if(err) {
+        database.getUser(username, function(data) {
+            if(data=='') {
                 console.log('first');
                 return done(null,false,{message:'username is incorrect'})
             }
@@ -132,14 +141,15 @@ passport.deserializeUser(function(id, done) {
     return done(null, id)
 
 });
-var FACEBOOK_APP_ID="936039526595879";
-var FACEBOOK_APP_SECRET='01040f2e7ab7017c4f14691d6cdaccb4';
+var FACEBOOK_APP_ID="343313179612341";
+var FACEBOOK_APP_SECRET='0c3fdca4452ee45a8e6999516d785fdf';
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
     callbackURL:"http://localhost:8000/auth/facebook/callback",
     profileFields:['id','displayName','picture']
     }, function(accessToken, refreshToken, profile, done) {
+            console.log(profile);
             profile.displayName=profile.displayName.replace(" ","");
             for(lo=0;lo<reg.length;lo++){
                 console.log(lo);
@@ -169,7 +179,7 @@ passport.use(new FacebookStrategy({
     }
   }
 ));
-app.get('/auth/facebook', passport.authenticate('facebook', {scope:"email"}));
+app.get('/auth/facebook', passport.authenticate('facebook', {scope:["email"]}));
 app.get('/auth/facebook/callback', passport.authenticate('facebook',
     {successRedirect:'/sui',
     failureRedirect:'/failure' }
@@ -186,7 +196,15 @@ app.get(`/success`, function(req,res) {
     }
     else{
         res.render('indo.ejs',{
-            name:req.user
+            name:req.user,
+            stop:stop,
+            box1:box1,
+            box2:box2,
+            box3:box3,
+            box4:box4,
+            box5:box5,
+            box6:box6,
+            box7:box7
         })
     }
 });
@@ -195,8 +213,15 @@ app.get(`/success`, function(req,res) {
 app.get('/sui',function(req,res){
     v=req.user;
     res.render('indo.ejs',{
-        name:req.user
-
+        name:req.user,
+        stop:stop,
+        box1:box1,
+        box2:box2,
+        box3:box3,
+        box4:box4,
+        box5:box5,
+        box6:box6,
+        box7:box7
     })
 })
 
@@ -220,8 +245,7 @@ app.get('/data', function(req, res) {
 
 app.post('/signup', function(req, res,next) {
     iduser.push(req.body.username);
-        fs.mkdirSync(`public/Users/${req.body.username}`);
-                console.log('created')
+    fs.mkdirSync(`public/Users/${req.body.username}`);
     operations.encrypt(req.body.username, req.body.password, function (err,data) {
         if(err) next(err)
          else {
@@ -240,16 +264,13 @@ app.post('/add', function(req,res) {
     //     res.sendStatus(500);
     // }
         database.insert(req.body.todo.id,req.body.todo.msg, req.body.userr, function (err, data) {
-            if (err) {
-                throw err;
-            }
-            else {
+            
                 // Maintaining Index on Server
                 index++;
                 res.send(index.toString());
                 //res.send(data);
                 
-            }
+            
 
         });
 });
@@ -281,7 +302,7 @@ app.post('/addimage', function(req,res) {
    var set=1;
 app.post('/addprofile',function(req,res){
         var data = req.body.todoing.msg.replace(/^data:image\/\w+;base64,/, "");
-
+        console.log(data);
          var buf = new Buffer(data, 'base64');
          fs.writeFile(`public/Users/${req.body.todoing.user}/image${set}.png`, buf);
 
@@ -292,7 +313,7 @@ app.post('/addprofile',function(req,res){
 }) 
 app.post('/add1', function(req,res) {
     var data = req.body.pic.msg.replace(/^data:image\/\w+;base64,/, "");
-
+        console.log(data);
          var buf = new Buffer(data, 'base64');
          fs.writeFile(`public/Users/${req.body.user}/profile.png`, buf);
         database.insert1('profile.png', req.body.user, function (err, data) {
@@ -522,7 +543,7 @@ io.on('connection',function (sk) {
     // })
     sk.on('neww',function(data,data1,data2){
     sk.emit('window',messages,all,pic,v,data);
-    sk.emit('jerk',all,status,idle,room1,usercount,data1,data2);
+    io.emit('jerk',all,status,idle,room1,usercount,data1,data2);
     //sk.emit('never',all);
     })
 
@@ -669,25 +690,113 @@ io.on('connection',function (sk) {
         // io.emit('people',connected,usercount);
      })
     sk.on('rem',function(pep,tap){
+        stop="none";
         sk.emit('cod',pep,tap);
     })
     sk.on('first',function(data){
-        io.emit('day1',data);
+        stop="block";
+        box1='';
+        box2='disabled';
+        box3='disabled';
+        box4='disabled';
+        box5='disabled';
+        box6='disabled';
+        box7='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+        // io.emit('day1',data);
     })
     sk.on('second',function(data){
-        io.emit('day2',data);
+        stop="block";
+        box2='';
+        box1='disabled';
+        box3='disabled';
+        box4='disabled';
+        box5='disabled';
+        box6='disabled';
+        box7='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+        // io.emit('day2',data);
     })
     sk.on('third',function(data){
-        io.emit('day3',data);
+        stop="block";
+        box3='';
+        box1='disabled';
+        box2='disabled';
+        box4='disabled';
+        box5='disabled';
+        box6='disabled';
+        box7='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+        // io.emit('day3',data);
     })
     sk.on('fourth',function(data){
-        io.emit('day4',data);
+        stop="block";
+        box4='';
+        box2='disabled';
+        box3='disabled';
+        box1='disabled';
+        box5='disabled';
+        box6='disabled';
+        box7='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+        // io.emit('day4',data);
     })
     sk.on('fifth',function(data){
-        io.emit('day5',data);
+        stop="block";
+        box5='';
+        box2='disabled';
+        box3='disabled';
+        box4='disabled';
+        box1='disabled';
+        box6='disabled';
+        box7='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+        // io.emit('day5',data);
     })
     sk.on('sixth',function(data){
-        io.emit('day6',data);
+        stop="block";
+        box6='';
+        box2='disabled';
+        box3='disabled';
+        box4='disabled';
+        box5='disabled';
+        box1='disabled';
+        box7='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+        // io.emit('day6',data);
+    })
+    sk.on('seventh',function(data){
+        stop="block";
+        box7='';
+        box2='disabled';
+        box3='disabled';
+        box4='disabled';
+        box5='disabled';
+        box6='disabled';
+        box1='disabled';
+        setTimeout(function(){
+            stop="none";
+            console.log("logout")
+        },3600000)
+     // io.emit('day6',data);
     })        
     // sk.on('timer',function(data){
     //     io.emit('tym','asd');
@@ -709,7 +818,9 @@ io.on('connection',function (sk) {
 
 
 
-server.listen(8000,function () {
-    console.log("Working");
-    // io.emit('rewardie','try');
+server.listen(8000,function(){
+    console.log("working");
 });
+//     function(){
+//     console.log("server running on" +port);
+// });

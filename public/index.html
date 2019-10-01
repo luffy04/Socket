@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Talkie</title>
     <link rel="stylesheet" href="socket.css">
-    <link href="faceMocion.css" rel="stylesheet" type=/css" />
+    <link href="faceMocion.css" rel="stylesheet" type=/css />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link href="lib/css/emoji.css" rel="stylesheet">
+    <link href="emoji.css" rel="stylesheet">
 </head>
 <body>
     <div class="preloader" hidden></div>
@@ -137,16 +140,24 @@
     <span id="casing"></span>
     <span id="caping"></span>
     <span id="caping1"></span>
-    <textarea type="text" placeholder="Type your Text Here" id="inp"></textarea>
+    <div contentEditable="true" hidefocus="true" data-text="Type your Text Here" id="inp"></div>
+    <!-- <a href="javascript:void(0)" title=":heart_eyes:"><img src="../lib/img//blank.gif" class="img" style="display:inline-block;width:25px;height:25px;background:url('../lib/img//emoji_spritesheet_0.png') -150px 0px no-repeat;background-size:675px 175px; z-index: 2000;" alt=":heart_eyes:"></a> -->
     
-        <button id="btn"  type="submit"></button>
+    
+        
     <!-- s</span> -->
     
    <!--  <form method="post" action="/" enctype="multipart/form-data"> -->
-    <input type="file" id="myImage" name="myImage" accept="image/*" />
-    <button id="attach"></button>
+    <button id="selece" class="fas fa-smile" >
+        <div class="emoji-menwd" data-id="f3afe3ae-6b20-446d-b7af-4c2c0a8ebabd" data-type="menu" style="z-index: 5003; display: none;" ><div class="emoji-items-wrapping"><div class="emoji-items-wrapsw">
+        <div class="emoji-itemss">
+    <a href="javascript:void(0)" title=":gift_heart:"><img src="../lib/img//blank.gif" class="img" id="gift_heart" style="display:inline-block;width:25px;height:25px;background-size:825px 175px;" alt=":gift_heart:"></a><a href="javascript:void(0)" title=":kissing_heart:"><img src="../lib/img//blank.gif" class="img" id="kissing_heart" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":kissing_heart:"></a><a href="javascript:void(0)" title=":heart_eyes:"><img src="../lib/img//blank.gif" class="img" id="heart_eyes" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":heart_eyes:"></a><a href="javascript:void(0)" title=":joy:"><img src="../lib/img//blank.gif" class="img" id="joy" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":joy:"></a><a href="javascript:void(0)" title=":heart:"><img src="../lib/img//blank.gif" class="img" id="heart" style="display:inline-block;width:25px;height:25px;;background-size:675px 175px;" alt=":heart:"></a><a href="javascript:void(0)" title=":blush:"><img src="../lib/img//blank.gif" class="img" id="blush" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":blush:"></a><a href="javascript:void(0)" title=":grin:"><img src="../lib/img//blank.gif" class="img" id="grin" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":grin:"></a><a href="javascript:void(0)" title=":+1:"><img src="../lib/img//blank.gif" class="img" id="plus" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":+1:"></a><a href="javascript:void(0)" title=":relaxed:"><img src="../lib/img//blank.gif" class="img" id="relaxed" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":relaxed:"></a><a href="javascript:void(0)" title=":pensive:"><img src="../lib/img//blank.gif" class="img" id="pensive" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":pensive:"></a><a href="javascript:void(0)" title=":smile:"><img src="../lib/img//blank.gif" class="img" id="smile" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":smile:"></a><a href="javascript:void(0)" title=":sob:"><img src="../lib/img//blank.gif" class="img" id="sob" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":sob:"></a><a href="javascript:void(0)" title=":kiss:"><img src="../lib/img//blank.gif" class="img" id="kiss" style="display:inline-block;width:25px;height:25px;;background-size:675px 175px;" alt=":kiss:"></a><a href="javascript:void(0)" title=":unamused:"><img src="../lib/img//blank.gif" class="img" id="unamused" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":unamused:"></a><a href="javascript:void(0)" title=":flushed:"><img src="../lib/img//blank.gif" class="img" id="flushed" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":flushed:"></a><a href="javascript:void(0)" title=":stuck_out_tongue_winking_eye:"><img src="../lib/img//blank.gif" class="img" id="stuck_out_tongue_winking_eye" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":stuck_out_tongue_winking_eye:"></a><a href="javascript:void(0)" title=":see_no_evil:"><img src="../lib/img//blank.gif" class="img" id="see_no_evil" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":see_no_evil:"></a><a href="javascript:void(0)" title=":wink:"><img src="../lib/img//blank.gif" class="img" id="wink" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":wink:"></a><a href="javascript:void(0)" title=":smiley:"><img src="../lib/img//blank.gif" class="img" id="smiley" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":smiley:"></a><a href="javascript:void(0)" title=":cry:"><img src="../lib/img//blank.gif" class="img" id="cry" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":cry:"></a><a href="javascript:void(0)" title=":stuck_out_tongue_closed_eyes:"><img src="../lib/img//blank.gif" class="img" id="stuck_out_tongue_closed_eyes" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":stuck_out_tongue_closed_eyes:"></a><a href="javascript:void(0)" title=":scream:"><img src="../lib/img//blank.gif" class="img" id="scream" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":scream:"></a><a href="javascript:void(0)" title=":rage:"><img src="../lib/img//blank.gif" class="img" id="rage" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":rage:"></a><a href="javascript:void(0)" title=":smirk:"><img src="../lib/img//blank.gif" class="img" id="smirk" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":smirk:"></a><a href="javascript:void(0)" title=":disappointed:"><img src="../lib/img//blank.gif" class="img" id="disappointed" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":disappointed:"></a><a href="javascript:void(0)" title=":sweat_smile:"><img src="../lib/img//blank.gif" class="img" id="sweat_smile" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":sweat_smile:"></a><a href="javascript:void(0)" title=":kissing_closed_eyes:"><img src="../lib/img//blank.gif" class="img" id="kissing_closed_eyes" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":kissing_closed_eyes:"></a><a href="javascript:void(0)" title=":speak_no_evil:"><img src="../lib/img//blank.gif" class="img" id="speak_no_evil" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":speak_no_evil:"></a><a href="javascript:void(0)" title=":relieved:"><img src="../lib/img//blank.gif" class="img" id="relieved" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":relieved:"></a><a href="javascript:void(0)" title=":grinning:"><img src="../lib/img//blank.gif" class="img" id="grinning" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":grinning:"></a><a href="javascript:void(0)" title=":yum:"><img src="../lib/img//blank.gif" class="img" id="yum" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":yum:"></a><a href="javascript:void(0)" title=":ok_hand:"><img src="../lib/img//blank.gif" class="img" id="ok_hand" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":ok_hand:"></a><a href="javascript:void(0)" title=":neutral_face:"><img src="../lib/img//blank.gif" class="img" id="neutral_face" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":neutral_face:"></a><a href="javascript:void(0)" title=":confused:"><img src="../lib/img//blank.gif" class="img" id="confused" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":confused:"></a><a href="javascript:void(0)" title=":japanese_goblin:"><img src="../lib/img//blank.gif" class="img" id="japanese_goblin" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":japanese_goblin:"></a><a href="javascript:void(0)" title=":ghost:"><img src="../lib/img//blank.gif" class="img" id="ghost" style="display:inline-block;width:25px;height:25px;background-size:825px 175px;" alt=":ghost:"></a><a href="javascript:void(0)" title=":smiling_imp:"><img src="../lib/img//blank.gif" class="img" id="smiling_imp" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":smiling_imp:"></a><a href="javascript:void(0)" title=":ok_hand:"><img src="../lib/img//blank.gif" class="img" id="ok_hand" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":ok_hand:"></a><a href="javascript:void(0)" title=":v:"><img src="../lib/img//blank.gif" class="img" id="ve" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":v:"></a><a href="javascript:void(0)" title=":pray:"><img src="../lib/img//blank.gif" class="img" id="pray" style="display:inline-block;width:25px;height:25px;background-size:675px 175px;" alt=":pray:"></a></div></div></div></div>
+    <div id="emoji-arrow"></div>
+    </button>
+    <input type="file" id="myImage" name="myImage" accept="image/*"  hidden />
+    <button id="attach" hidden></button>
     <!-- </form> -->
-    
+    <button id="btn"  type="submit" hidden></button>
     <div id="requestt" hidden>
      <div id="reqname">
          <button id="nameuser"style="color: #d58512"></button> <span style="color: white">sent you a request to join Quick Chat.</span>
@@ -175,10 +186,14 @@
 </span>
 
 <!-- <a href="/auth/facebook">Login with Facebook</a> -->
+
+<script async="" src="//www.google-analytics.com/analytics.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
- 
-    <script src="faceMocion.js"></script> 
+<script src="lib/js/config.js"></script>
+<script src="lib/js/util.js"></script>
+<script src="lib/js/jquery.emojiarea.js"></script>
+<script src="lib/js/emoji-picker.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

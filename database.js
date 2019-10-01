@@ -52,13 +52,8 @@ function signUp(username, hash, cb) {
         })
     }
      function getUser(username, cb) {
-        connection.query(`Select * from login where username='${username}'`, function(err, results) {
-                if(err){
-                    console.log(err);
-                }
-                else{
+        connection.query(`Select * from login where username='${username}'`, function(error,results,fields) {
                 cb(results); 
-            }
          })
     }
 function displaying(username,cb){

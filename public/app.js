@@ -15,6 +15,7 @@ var loot;
 var specs;
 var trainer;
 var teller;
+var xw;
 var po;
 var asd;
 var qwe='Global';
@@ -302,10 +303,8 @@ $(document).ready(function(){
                     net=pk;
                     console.log(net);
                     $('#parentid').show();
-                            break;
-                    }
-                   
-
+                    break;
+                    } 
                 }
                 console.log(pk);
                 if(pk==all.length && all.length!=0){
@@ -322,8 +321,10 @@ $(document).ready(function(){
         if($('#passebox').val()==""){
             $('#parentpassport').show();
         }
+        else{
          socket.emit('join1',$('#nameebox').val(),active,$('#passebox').val());
         socket.emit('neww',qwe);
+        }
     })
 
     $('#okide').click(function(){
@@ -337,6 +338,7 @@ $(document).ready(function(){
             $('#parentid').show();    
         }
         else{
+            socket.emit('con',$('#nameebox').val());
             socket.emit('neww',qwe);
         }
     })
@@ -351,8 +353,9 @@ $(document).ready(function(){
    
     
     btn.click(function(){
-        let value=inp.val();
-       
+        let value=inp.html();
+        console.log(inp.html());
+        // console.log(inp.val());
         if(value) {
             add(value);
         }
@@ -361,7 +364,7 @@ $(document).ready(function(){
   
     btnu.click(function(){
 
-        let value=inpu.val();
+        let value=inpu.html();
         console.log("trust");
         if(value){
             exactly(value,asd);
@@ -397,7 +400,6 @@ $(document).ready(function(){
         divr.animate({"top":"-=450px"},"slow");
         $('#profileru').show();
     })
-
     profile.click(function(){
          vds=userb.text();
         console.log(vds);
@@ -562,7 +564,7 @@ $(document).ready(function(){
         setTimeout(function(){
             first.attr('disabled',true);
             box.hide();
-        },86400000)
+        },86400000);
     })
 
     day2.click(function(){
@@ -620,14 +622,9 @@ $(document).ready(function(){
             box.hide();
         },86400000)
     })
-    // day7.click(function(){
-    //     box.show();
-    //     sev.removeAttr('disabled');
-    //     setTimeout(function(){
-    //         first.attr('disabled',true);
-    //         box.hide();
-    //     })
-    // })
+    day7.click(function(){
+        socket.emit('seventh','xc');  
+    })
     $('#info').click(function(){
         $('#lets').show();
     })
@@ -646,6 +643,10 @@ $(document).ready(function(){
     $('#skip3').click(function(){
         $('#lets3').hide();
     })
+    $('#skip4').click(function(){
+        $('#lets4').hide();
+    })
+
     $('#start').click(function(){
         $('#lets').hide();
         $('#lets1').show();
@@ -670,7 +671,10 @@ $(document).ready(function(){
         $('#lets2').hide();
         $('#lets3').show();
     })
-
+      $('#next2').click(function(){
+        $('#lets3').hide();
+        $('#lets4').show();  
+      })
     $('#closereward').click(function(){
         $('#outside').hide();
     })
@@ -708,23 +712,23 @@ $(document).ready(function(){
 
     socket.on('people',function (name,data) {
         // connected.append(`<li id="connie">${data}.<span class='${name}' id="try">${name}</span>
-        //     <img class="onlineimg" src="nf/if_status_46254.png" /> </li>`)
+        //     <button class="fas fa-circle" id="online" style="color:green;"></button>
+           //  </li>`)
         
         $('#count').text(`${data}`);
       
     });
     socket.on('disk',function(kill,all,status){
         console.log("beta tumse na hoga")
-        
+                // console.log($(`.${kill}`).val());
                 $(`.${kill}`).next().remove();
-                $(`.${kill}`).append(`<img class="onlineimg" src="nf/if_status-busy_46252.png" />`);
-            
-            
+                $(`.${kill}`).append(`<button class="fas fa-circle" id="online" style="color:red;"></button>`);
+                // $(`.${kill}`).append(`<img class="onlineimg" src="nf/if_status-busy_46252.png" />`);
         })
     socket.on('monitor',function (data,user) {
         $(`.${data}`).next().remove();
         $(`.${data}`).append(`<img class="onlineimg" src="nf/if_status_46254.png" />`);
-        $('#count').text(`${user}`)
+        // $('#count').text(`${user}`)
         console.log("bro")
     });
     socket.on('send',function (data) {
@@ -754,6 +758,28 @@ $(document).ready(function(){
 
         }
     });
+    
+
+      $('#emoj').click(function(){
+        console.log(this.src);
+        var pe=$(this).clone();
+            inp.append(pe);
+            inpu.append(pe);
+            // console.log(xw);
+        // inp.append('<img src="../lib/img/blank.gif"/>')
+      })
+      $('#selece').click(function(){
+        $('.emoji-menwd').toggle();
+        $('#emoji-arrow').toggle();
+      })
+      $('.img').click(function(){
+        console.log(this.src);
+        var pe=$(this).clone();
+            inp.append(pe);
+            inpu.append(pe);
+            // console.log(xw);
+        // inp.append('<img src="../lib/img/blank.gif"/>')
+      })
     socket.on('addimage', function(data){
         
         $.ajax({
@@ -845,6 +871,7 @@ $(document).ready(function(){
         })
     })
     socket.on('send_all',function (data) {//Listener 2
+        console.log(data.msg);
         if(get.text()==local.text()){
         if(`${data.id}`==$('#nameebox').val()){
         result.append(`<li><span id="orange"><span id="${data.id}" class="propt"><strong>${data.id}</strong></span><br><span id="mesg"><br>${data.msg}</br></span></br>
@@ -929,6 +956,11 @@ $(document).ready(function(){
     });
 
     socket.on('window',function(data,all,pic,v,qwe) {
+        $('#inp').css('display','inline-block');
+        $('#selece').css('display','block');
+        $('#attach').css('display','block');
+        $('#btn').css('display','block');
+        $('#myImage').css('display','block');
         ramp(qwe);
         
         // while(all.length)
@@ -938,7 +970,7 @@ $(document).ready(function(){
 
     function locall(dataa){
      // // for(i=0;i<pep.length;i++){
-     // //    console.log(pep.charAt(i));
+     // //    console.log(pep.charAt(i));<button class="fas fa-circle" id="online" style="color:red;"></button>
      // // } 
      // console.log(pep.length);
         dataa.forEach(function(d) {
@@ -1200,13 +1232,13 @@ $(document).ready(function(){
                 //         }
                 //         socket.emit('join1',name,active,del);
                 //     }
-          
+            connected.empty();
             for(z=0;z<all.length;z++){
                 if(status[z]==0){
-                    connected.append( `<li id="connie">${z+1}.<span class='${name}' id="try">${all[z]}</span><img class="onlineimg" src="nf/if_status_46254.png" /></li>`)
+                    connected.append( `<li id="connie">${z+1}.<span class='${all[z]}' id="try">${all[z]}</span><button class="fas fa-circle" id="online" style="color:green;"></button></li>`)
                 }
                 else{
-                    connected.append( `<li id="connie">${z+1}.<span class='${name}' id="try">${all[z]}</span><img class="onlineimg" src="nf/if_status-busy_46252.png" /></li>`)
+                    connected.append( `<li id="connie">${z+1}.<span class='${all[z]}' id="try">${all[z]}</span><button class="fas fa-circle" id="online" style="color:red;"></button></li>`)
                 }
             }
             setInterval(function() { makeTimer(room1); }, 1000);    
@@ -1303,7 +1335,7 @@ $(document).ready(function(){
         })  
     }
     function openat(el){
-        $('#inpu').css('display','inline-block');
+        $('#inpu').show();
         $('myImageu').show();
         $('#btnu').show();
         $('#attachement').show();
@@ -1314,7 +1346,9 @@ $(document).ready(function(){
         $('#casing1').show();
         $('#caping12').show();
         $('#caping11').show();
+        $('#selece').css('display','block');
         $('#chatidin').text($(el).text())
+        result1.scrollTop = result1.scrollHeight ;
         pack=$(el).text();
          asd=$(el).next().text();
          $('#dawn').text($(el).next().text());
@@ -1557,6 +1591,10 @@ $(document).ready(function(){
          btlu.click(function(){
         $(this).attr('disabled',true);
         box.hide();
+        console.log($(this).text());
+        console.log($(this).val());
+        
+
          dear=revo.text(parseInt(revo.text())+parseInt($(this).text()));
             retro(revo.text(),userb.text());
             if(revo.text()>=100){

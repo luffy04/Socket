@@ -1,3 +1,7 @@
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    opacity: 0.5;
+}
 button:focus{
     outline: 0;
 }
@@ -5,23 +9,16 @@ body{
     background-color: black;
     position: relative;
     height: 650px;
-    /*background: url('nf/598846.jpg');*/
-    /*background-size: cover;
-    width: 100%;
-    height: 650px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;*/
+    background-attachment: fixed;
     overflow-x: hidden;
     overflow-y: hidden;
-    /*animation-name: body;*/
-    /*/animation-duration: 6s;*/
     z-index: 0;
 }
 #snow1{
     background:url('nf/snow-png.png');
     background-size:repeat;
     width: 100%;
-    height:650px; 
+    height:100vh; 
     position: absolute;
     top:0;
     left: 0;
@@ -40,7 +37,7 @@ body{
     background:url('nf/snow-png.png');
     background-size: repeat;
     width: 100%;
-    height:650px; 
+    height:100vh; 
     position: absolute;
     top:0;
     left: 0;
@@ -59,7 +56,7 @@ body{
     background:url('nf/snow-png.png');
     background-size: repeat;
     width: 100%;
-    height:650px; 
+    height:100vh; 
     position: absolute;
     top:0;
     left: 0;
@@ -79,7 +76,7 @@ body{
     position: absolute;
     right:8%;
     top:32px;
-    border: 1px solid #007bff;25%
+    border: 1px solid #007bff;
     background-color: #007bff;
     color:white;
 }
@@ -153,9 +150,15 @@ img{
     left:28%;
     width:43%;
     color:white;
+    border-radius: 0.25em;
     background-color: #007bff;
     border: none;
     height:30px;
+}
+#okname:hover{
+    color:#007bff;
+    background-color: white;
+    border: 2px solid #007bff;
 }
 #parentpassport{
      z-index:101;
@@ -196,9 +199,15 @@ img{
     left:28%;
     width:43%;
     color:white;
+    border-radius: 0.25em;
     background-color: #007bff;
     border: none;
     height:30px;
+}
+#okpasse:hover{
+    color:#007bff;
+    background-color: white;
+    border: 2px solid #007bff;
 }
 #parentid{
      z-index:101;
@@ -238,9 +247,15 @@ img{
     left:28%;
     width:43%;
     color:white;
+    border-radius: 0.25em;
     background-color: #007bff;
     border: none;
     height:30px;
+}
+#okide:hover{
+    color:#007bff;
+    background-color: white;
+    border: 2px solid #007bff;
 }
 #parentroom{
     z-index:101;
@@ -280,9 +295,15 @@ img{
     left:28%;
     width:43%;
     color:white;
+    border-radius: 0.25em;
     background-color: #007bff;
     border: none;
     height:30px;
+}
+#okrrom:hover{
+    color:#007bff;
+    background-color: white;
+    border: 2px solid #007bff;
 }
 #parentmobile{
     z-index:101;
@@ -322,11 +343,16 @@ img{
     left:28%;
     width:43%;
     color:white;
+    border-radius: 0.25em;
     background-color: #007bff;
     border: none;
     height:30px;
 }
-
+#okmoble:hover{
+    color:#007bff;
+    background-color: white;
+    border: 2px solid #007bff;
+}
 #parentlogin{
     z-index:101;
     position: fixed;
@@ -629,9 +655,10 @@ img{
     width:40px;
     height:16px;
 }
-.onlineimg{
-    width:12%;
-    height: 11px;
+#online{    
+    border: none;
+    background: none;
+    font-size: 10px;
 }
 .offlineimg{
     width: 12%;
@@ -965,14 +992,16 @@ background-color:#cccccc;
     position: absolute;
     right: 12%;
     bottom: 7px;
+    background-color: white;
     border-radius: 5px;
     padding-left: 10px; 
-    padding-right: 47px;
+    padding-right: 86px;
     padding-top: 12px;
+    padding-bottom: 5px;
     border: none;
-    width:78%;
-    height: 27px;
-    display: inline-block;
+    width:70%;
+    min-height: 28px;
+    display: none;
     word-break: break-all;
 }
 
@@ -1009,7 +1038,62 @@ background-color:#cccccc;
     width: 30px;
     border-radius: 50%;
 }
-
+#selece{
+    font-size: 29px;
+    background: none;
+    display: none;
+    border:none;
+    position: absolute;
+    right:17%;
+    bottom: 12px;
+}
+.emoji-menwd{
+    position: absolute;
+    right: -85px;
+    top: -208px;
+    z-index: 999;
+    width: 225px;
+    overflow: hidden;
+    border: 1px #dfdfdf solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+#emoji-arrow{
+    position: absolute;
+    width:20px;
+    display: none;
+    right: 13px;
+    bottom: 33px;
+    z-index: 999;
+    height:20px;
+    border-top:10px solid white;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:10px solid transparent;
+    width: 0;
+    height: 0;
+}
+.emoji-items-wrapping{
+        background: #ffffff;
+    padding: 5px 16px 5px 5px;
+}
+.emoji-items-wrapsw{
+        position: relative;
+    height: 174px;
+    overflow: scroll;
+}
+.emoji-items-wrapsw::-webkit-scrollbar{
+    width: 0;
+}
+.emoji-itemss{
+        padding-right: 8px;
+    outline: 0 !important;
+}
 #myImageu{
     opacity: 0;
     z-index: 2;
@@ -1646,12 +1730,14 @@ background-color:#cccccc;
     bottom: 7px;
     border-radius: 5px;
     padding-left: 10px; 
-    padding-right: 47px;
+    padding-right: 86px;
     padding-top: 12px;
+    padding-bottom: 5px;
     border: none;
-    width:78%;
-    height: 27px;
-    display: none;
+    background-color: white;
+    width:70%;
+    min-height: 28px;
+    /*display: none;*/
     word-break: break-all;
 }
 .preloader{
@@ -1661,7 +1747,7 @@ background-color:#cccccc;
        width: 100%;
        height: 100%;
        z-index: 3;
-       /*successbox*/
+       /*success inp box*/
        background-image: url('nf/Gear-5s-36px.gif');
        background-repeat: no-repeat; 
        background-color: none;
@@ -1695,7 +1781,7 @@ background-color:#cccccc;
 /*input[type='file']{
     opacity: 0;
     z-index: 2;
-    color: transparent;
+    color: inpu transparent;
     position: fixed;
     right:25%;
     bottom: 4.2%;
@@ -2459,6 +2545,14 @@ background-color:#cccccc;
     border:2px solid goldenrod;
     border-radius: 10px;
 }
+#inn1{
+     position: absolute;
+    margin:10px;
+    width:94%;
+    height:82%;
+    border:2px solid goldenrod;
+    border-radius: 10px;
+}
 #lettere{
     position: absolute;
     margin:24px;
@@ -2518,6 +2612,17 @@ background-color:#cccccc;
     background: none;
     border:none;
 }
+#skip4{
+    position: absolute;
+    right: 4%;
+    bottom: 9%;
+    color: #2E8B57;
+    width: 75px;
+    height: 23px;
+    background: none;
+    border:none;
+}
+
 #lets1{
      position: absolute;
     z-index: 7;
@@ -2539,6 +2644,16 @@ background-color:#cccccc;
     border-radius: 10px;
 }
 #lets3{
+     position: absolute;
+    z-index: 7;
+    left:37%;
+    top: 207px;
+    width:23%;
+    height:107px;
+    background-color: #161616;
+    border-radius: 10px;
+}
+#lets4{
      position: absolute;
     z-index: 7;
     left:37%;
@@ -2891,6 +3006,10 @@ background-color:#cccccc;
         background: black;
         opacity: 0.8;
         width:127px;
+        height: 100vh;
+    }
+    #one{
+        height: 100vh;
     }
     #froe{
         width: 83%;
@@ -2901,6 +3020,7 @@ background-color:#cccccc;
     #parentsocket{
         right:0%;
         width: 78%;
+        height: 100vh;
     }
     #alexa{
         right:28%;
@@ -2976,6 +3096,9 @@ background-color:#cccccc;
         left: 27%;
     }
     #lets3{
+        width: 305px;
+    }
+    #lets4{
         width: 222px;
     }
     #hile{
@@ -3033,11 +3156,18 @@ background-color:#cccccc;
     #attach{
         right: 15%;
     }
+    #selece{
+        right: 21%;
+    }
     #list{
         left:12%;
         width: 65%;
     }
     #lets3{
+        width:305px;
+        left:2%;
+    }
+    #lets4{
         width: 222px;
         left:29%;
     }
@@ -3087,6 +3217,9 @@ background-color:#cccccc;
     #attach{
         right: 16%;
     }
+    #selece{
+        right:22%;
+    }
     #btnu{
         right:3%;
     }
@@ -3132,6 +3265,9 @@ background-color:#cccccc;
     }
     #attach{
         right:18%;
+    }
+    #selece{
+        right: 27%;
     }
     #list{
         width: 75%;
