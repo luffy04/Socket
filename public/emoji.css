@@ -1,0 +1,133 @@
+.emoji-items-wrap::-webkit-scrollbar{
+	width: 0px;
+}
+#gift_heart{
+	background:url('../lib/img//emoji_spritesheet_2.png') -25px 0px no-repeat;
+}
+#kissing_heart{
+	display:inline-block;
+	background:url('../lib/img//emoji_spritesheet_0.png') -175px 0px no-repeat;
+	background-size:675px 175px;
+}
+#heart_eyes{
+	display:inline-block;
+	background:url('../lib/img//emoji_spritesheet_0.png') -150px 0px no-repeat;
+	background-size:675px 175px;
+}
+#joy{
+	background:url('../lib/img//emoji_spritesheet_0.png') -550px 0px no-repeat;
+	display:inline-block;
+	background-size:675px 175px;
+}
+#heart{
+	background:url('../lib/img//emoji_spritesheet_0.png') -250px -150px no-repeat;
+	display:inline-block;
+	background-size:675px 175px;
+}
+#blush{
+	background:url('../lib/img//emoji_spritesheet_0.png') -75px 0px no-repeat;
+	display:inline-block;
+	background-size:675px 175px;
+}
+#grin{
+	background:url('../lib/img//emoji_spritesheet_0.png') -375px 0px no-repeat;
+}
+#plus{
+	background:url('../lib/img//emoji_spritesheet_0.png') -600px -75px no-repeat;	
+}
+#relaxed{
+	background:url('../lib/img//emoji_spritesheet_0.png') -100px 0px no-repeat;
+}
+#pensive{
+	background:url('../lib/img//emoji_spritesheet_0.png') -400px 0px no-repeat;
+}
+#smile{
+	background:url('../lib/img//emoji_spritesheet_0.png') 0px 0px no-repeat;
+}
+#sob{
+	background:url('../lib/img//emoji_spritesheet_0.png') -575px 0px no-repeat;
+}
+#kiss{
+	background:url('../lib/img//emoji_spritesheet_0.png') -475px -150px no-repeat;
+}
+#unamused{
+	background:url('../lib/img//emoji_spritesheet_0.png') -450px 0px no-repeat;
+}
+#flushed{
+	background:url('../lib/img//emoji_spritesheet_0.png') -350px 0px no-repeat;
+}
+#stuck_out_tongue_winking_eye{
+	background:url('../lib/img//emoji_spritesheet_0.png') -275px 0px no-repeat;
+}
+#see_no_evil{
+	background:url('../lib/img//emoji_spritesheet_0.png') -75px -75px no-repeat;
+}
+#wink{
+	background:url('../lib/img//emoji_spritesheet_0.png') -125px 0px no-repeat;
+}
+#smiley{
+	background:url('../lib/img//emoji_spritesheet_0.png') -25px 0px no-repeat;
+}
+#cry{
+	background:url('../lib/img//emoji_spritesheet_0.png') -525px 0px no-repeat;
+}
+#stuck_out_tongue_closed_eyes{
+	background:url('../lib/img//emoji_spritesheet_0.png') -300px 0px no-repeat;
+}
+#scream{
+	background:url('../lib/img//emoji_spritesheet_0.png') -125px -25px no-repeat;
+}
+#rage{
+	background:url('../lib/img//emoji_spritesheet_0.png') -175px -25px no-repeat;
+}
+#smirk{
+	background:url('../lib/img//emoji_spritesheet_0.png') -50px -50px no-repeat;
+}
+#disappointed{
+	background:url('../lib/img//emoji_spritesheet_0.png') -475px 0px no-repeat;
+}
+#sweat_smile{
+	background:url('../lib/img//emoji_spritesheet_0.png') 0px -25px no-repeat;
+}
+#kissing_closed_eyes{
+	background:url('../lib/img//emoji_spritesheet_0.png') -200px 0px no-repeat;
+}
+#speak_no_evil{
+	background:url('../lib/img//emoji_spritesheet_0.png') -125px -75px no-repeat;
+}
+#relieved{
+	background:url('../lib/img//emoji_spritesheet_0.png') -425px 0px no-repeat;
+}
+#grinning{
+	background:url('../lib/img//emoji_spritesheet_0.png') -50px 0px no-repeat;
+}
+#yum{
+	background:url('../lib/img//emoji_spritesheet_0.png') -275px -25px no-repeat;
+}
+#ok_hand{
+	background:url('../lib/img//emoji_spritesheet_0.png') -650px -75px no-repeat;
+}
+#neutral_face{
+	background:url('../lib/img//emoji_spritesheet_0.png') -600px -25px no-repeat;
+}
+#confused{
+	background:url('../lib/img//emoji_spritesheet_0.png') -625px -25px no-repeat;
+}
+#japanese_goblin{
+	background:url('../lib/img//emoji_spritesheet_0.png') -50px -75px no-repeat;
+}
+#ghost{
+	background:url('../lib/img//emoji_spritesheet_2.png') -275px 0px no-repeat;
+}
+#smiling_imp{
+	background:url('../lib/img//emoji_spritesheet_0.png') -500px -25px no-repeat;
+}
+#ok_hand{
+	background:url('../lib/img//emoji_spritesheet_0.png') -650px -75px no-repeat;
+}
+#ve{
+	background:url('../lib/img//emoji_spritesheet_0.png') -50px -100px no-repeat;
+}
+#pray{
+	background:url('../lib/img//emoji_spritesheet_0.png') -275px -100px no-repeat;
+}
