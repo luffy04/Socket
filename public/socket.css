@@ -436,9 +436,11 @@ img{
     top:100%;
     left:28%;
     width:43%;
+    background:none;
+    box-shadow: 1px 2px 1px black;
     /*color:white;*/
     /*background-color: #007bff;*/
-    border: none;
+    border: 1px solid black;
     height:36px;
 
 }

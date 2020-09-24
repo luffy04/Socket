@@ -1018,8 +1018,7 @@ $(document).ready(function(){
          socket.on('lonely',function(v) {
                // userb.text(v);
 
-               displayCall1(v);
-               displayreward(v);
+               displayCall1(v)+displayreward(v)+displaypic(v);
                //displaypic(v);
                // displayfriend(v);
 
@@ -1086,7 +1085,6 @@ $(document).ready(function(){
                 
             }
         })
-        displaypic(v);
     }
     function sdde(data){
         // $('.preloader1').show();

@@ -8,6 +8,7 @@ var engines = require('consolidate');
 const bodyParser = require('body-parser');
 const passport = require('passport'),
 FacebookStrategy = require('passport-facebook').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const passportLocal = require('passport-local').Strategy;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -25,6 +26,7 @@ var v;
 let tv;
 var x;
 var vet;
+var myuser;
 var sd;
 var tr;
 var des;
@@ -179,12 +181,92 @@ passport.use(new FacebookStrategy({
     }
   }
 ));
+
+var google_id="176824521063-af4a383r7o6n7b5ki62cbtvlo56hr29o.apps.googleusercontent.com";
+var google_secret="XOOylDNzU_jQkR0LKe-Zi8cr";
+passport.use('google',new GoogleStrategy({
+    clientID: google_id,
+    clientSecret: google_secret,
+    callbackURL: "http://localhost:8000/auth/google/callback"
+    }, function(accessToken, refreshToken, profile, done) {
+        // v=profile.displayName;
+        // database.signUpGoogle(profile.displayName, profile.emails[0].value,profile.id, function(err,data) {
+        //     if(data!=""){
+        //         io.on('connection',function(sk){
+        //             sk.emit('putvalue',profile.displayName,profile.emails[0].value);
+        //         })
+        //         // socket.emit('putvalue',profile.displayName,profile.emails[0].value);
+        //         cb(err,data);
+        //     }else{
+        //         database.signUp(profile.displayName,profile.emails[0].value,profile.id, function (err,data) {
+        //             // socket.emit('putvalue',profile.displayName,profile.emails[0].value);
+        //             io.on('connection',function(sk){
+        //                 sk.emit('putvalue',profile.displayName,profile.emails[0].value);
+        //             })
+        //             cb(err,data);
+        //         })
+        //     }
+        // })
+        // console.log(profile);
+            console.log(reg.length)
+
+            profile.displayName=profile.displayName.replace(" ","");
+            myuser=profile.displayName;
+            for(lo=0;lo<reg.length;lo++){
+                console.log("jere")
+                if(profile.displayName==reg[lo] || reg.length===0) {
+                database.st('luffy',function(err,data){
+                    done(err,profile.displayName);
+                        console.log("pattern")
+                    })
+                }
+            }
+            // if(lo>reg.length && reg.length!=0){
+                console.log("herre")
+          operations.encrypt(profile.displayName, accessToken, function (err,data) {
+                reg.push(profile.displayName);
+                console.log(reg);
+                // done(err,data);
+                  // fs.mkdirSync(`Users/${profile.displayName}`);
+                            // console.log('created')
+                
+            lo=0;
+        // })
+          database.insertx(profile.photos[0].value, profile.displayName, function (err, data) {
+                            index++;
+                            //res.send(index.toString());
+                            done(err,profile.displayName);
+
+                        });
+            })
+        }
+    // }
+));
+
 app.get('/auth/facebook', passport.authenticate('facebook', {scope:["email"]}));
 app.get('/auth/facebook/callback', passport.authenticate('facebook',
     {successRedirect:'/sui',
     failureRedirect:'/failure' }
     ))
 
+app.get('/auth/google', passport.authenticate('google', {scope:['profile','email']}));
+// app.get('/auth/google/callback',
+//   passport.authenticate('google'),
+//   (err, req, res, next) => {
+//
+//     res.render('index.ejs',{
+//         name:v
+//     })
+// },
+//   (req, res) => {
+//       console.log('second');
+//     res.redirect('/');
+//   }
+// );
+app.get('/auth/google/callback', passport.authenticate('google',
+    {successRedirect:'/sui',
+        failureRedirect:'/failure' }
+))
 
 app.get(`/success`, function(req,res) {
     
